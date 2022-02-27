@@ -1,0 +1,32 @@
+ <div class="main-t"> 
+    
+    <main> 
+
+    <% if @error_message %>
+    <div class="login_error">
+    <%= @error_message %>
+    </div> 
+    <% end %>   <!--深谷昌輝　追加　11月14日夜 -->
+
+    <%= form_tag("/login") do %>  
+      <div class="container2">  
+        <div class="user-form">
+          <div class="form-title">ログイン</div>
+            <div class="item">
+             <div class="form-item">ユーザーネーム</div>
+             <input type="text" name="name" value="<%= @name %>">
+             <div class="form-item">パスワード</div>
+             <input type="text" name="password" value="<%= @password %>">
+             <br></br>
+             <div class="botton">
+             <input type="submit" value="ログイン">
+             </div>
+             <div class="mitouroku"><%= link_to("登録がお済でない方はこちら","/users/shinki")%></div>
+            </div>
+          </div>  
+        </div>   
+        <% end %> 
+
+    </main>
+  </div>   
+</html>

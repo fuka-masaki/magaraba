@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Manga</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= yield :css %>
+        <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    </head>
+
+    <body>
+    
+        <header>
+            <div class="container">
+                <div class="header-logo-t">
+                    <%= link_to("漫画考察サイト", "/home/top") %>
+                </div>
+                <div class="header-menu-t">
+                    <% if session[:user_id] %>     
+                        <div>
+                            <%= link_to("ログアウト","/logout", {method: "post"})%>
+                        </div>
+                    <% else %>
+                        <div class="header-login-t">
+                            <%= link_to("ログイン","/login") %>
+                        </div>
+                        <div class="header-shinki-t">           
+                            <%= link_to("新規登録","/users/shinki") %>
+                        </div>
+                    <% end %>
+                    <div>            
+                        <%= link_to("お問合わせ","/users/inquiry") %>
+                    </div>                   
+                </div>
+            </div>
+        </header>  
+        <% if flash[:notice]%>
+            <div class="flash">
+                <%= flash[:notice] %>
+            </div>
+        <% end %>
+        <%= yield %>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<% content_for :css do %>
+<%= stylesheet_link_tag 'users' %>
+<% end %>
+<div class="main-t"> 
+  <main>
+    <div class="container2">
+      <div class="user-form">
+        <h1 class="form-title">投稿の編集</h1>
+        <%= form_tag("/posts/#{@post.id}/update") do %>
+          <div class="form">
+            <div class="form-body">
+              <% @post.errors.full_messages.each do |message| %>
+                <div class="form-error">
+                  <%= message %>
+                </div>
+              <% end %>               
+              <textarea name="content"><%= @post.content %></textarea>
+              <br></br>
+              <div class="user-submit"><input type="submit" value="保存"></div>
+              </div>
+          </div>
+        <% end %>
+      </div> 
+    </div> 
+  </main>                    
+</div>

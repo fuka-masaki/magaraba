@@ -1,0 +1,79 @@
+<% content_for :css do %>
+ <%= stylesheet_link_tag 'top-favorite' %>
+ <% end %>
+ <div class="main-t"> 
+         <div class="ichiran">
+            <div class="ichiran-title">漫画一覧</div>
+            <div class="comics">
+                <div class="comic">
+                    <%= link_to("ONE PIECE","/ONE_PIECE")%>
+                </div>
+                <div class="comic">                   
+                    <%= link_to("HUNTER×HUNTER","/HUNTER_HUNTER")%>
+                </div>
+                <div class="comic">                 
+                      <%= link_to("東京卍リベンジャーズ","/manji",{class: "manji"})%>
+                </div>
+                <div class="comic">                 
+                      <%= link_to("呪術廻戦","/juju",{class: "juju"})%>
+                </div>                           
+                <div class="comic">                    
+                      <%= link_to("怪獣8号","/hatigou",{class: "hatigou"})%>
+                </div> 
+                <div class="comic">                  
+                      <%= link_to("キングダム","/kingdom",{class: "kingdom"})%>
+                </div>
+                <div class="comic">                  
+                      <%= link_to("名探偵コナン","/conan",{class: "conan"})%>
+                </div>
+                <div class="comic">                  
+                      <%= link_to("僕のヒーローアカデミア","/hiroaka",{class: "hiroaka"})%>
+                </div>           
+                <div class="comic">                   
+                      <%= link_to("ワンパンマン","/punch",{class: "punch"})%>
+                </div>
+                <div class="comic">                         
+                      <%= link_to("ワールドトリガー","/trigger",{class: "trigger"})%>
+                </div>   
+                <div class="comic">                 
+                      <%= link_to("ブラッククローバー","/clover",{class: "clover"})%>
+                </div>      
+                <div class="comic">                               
+                      <%= link_to("推しの子","/oshi",{class: "oshi"})%>
+                </div>       
+            </div class="comics">
+          </div class="ichiran">
+    <div class="top-center">
+           <div class="top-kind">
+            <div class="search">
+             <li><i class="fas fa-search"></i></li>
+             <form action="http://localhost:3000/home/top" method="get">
+             <li><input type="search" name="search" placeholder="キーワードを入力"></li>
+             <li><input type="submit" name="submit" value="検索"><li>
+             </form>
+             </div class="search">
+            <div class="popular">
+             <%= link_to("人気","/home/top")%>
+            </div class="popular">
+            <div class="super-new">
+             <%= link_to("最新","/home/top-super-new")%>
+            </div class="super-new">
+            <div class="favorite">
+              <%= link_to("お気に入り","/users/:id/top-favorite")%>
+            </div class="favorite">
+            <div class="my-post">
+             <%= link_to("自分の投稿","/home/top-my-post")%>
+            </div class="my-post">    
+           </div class="top-kind">       
+
+        <div class="container">
+           <div class="top">
+                <p>トップ</p>
+            </div> 
+        </div>   
+    </div class="top-center">                                    
+ </div class="main-t">   
+  
+  
+
+  

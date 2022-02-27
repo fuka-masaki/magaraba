@@ -1,0 +1,143 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* ↓問い合わせCSS */
+.header-logo p{
+  text-align:center;
+  font-size:50px; 
+  font-family:'MS Gothic';
+  padding: 15px;
+ }
+ .form-title{
+  text-align:center;
+  font-size:30px;
+  padding-top:30px;
+  font-weight:5px;
+ }
+ .item{
+  text-align:center;
+  margin:20px 0px;
+  height:100%;
+ }
+ .form-item{
+  padding:0px 0 10px 0;
+  color:black;
+ }
+ 
+ input[type="text"]{
+  height:30px;
+  width:50%;
+ }
+ main{
+  height:650px;
+  width:100%;
+  
+ }
+ .user-form{                             
+  background-color:white;            
+  margin:70px 500px 0px 500px;
+  box-shadow:3px 0px 5px #3c3c3c;
+  
+ }
+ textarea{
+    width:50%;
+    height:100px; 
+ }
+
+
+/* ↓ログインページCSS */
+
+ .header-logo p{
+  text-align:center;
+  font-size:50px; 
+  font-family:'MS Gothic';
+  padding: 15px;
+ }
+ .form-title{
+  text-align:center;
+  font-size:30px;
+  padding-top:30px;
+  font-weight:5px;
+ }
+ .item{
+  text-align:center;
+  margin:20px 0px;
+  height:100%;
+ }
+ .form-item{
+  padding: 5px 0px 10px 0;
+  color:black;
+ }
+ input[type="text"]{
+  height:30px;
+  width:50%;
+ }
+ .container2{
+  height:650px;
+  width:100%;
+  
+ }
+ .user-form{ 
+  background-color:white; 
+  margin:70px 500px 0px 500px;
+  box-shadow:3px 0px 5px #3c3c3c;
+ 
+ }
+ 
+/* ↓新規登録CSS */
+*{
+  margin:0px;
+  padding:0px;
+ }
+ header{
+  background-color:rgba(253, 174, 83, 0.8);
+  height:80px;
+ }
+ .header-logo p{
+  text-align:center;
+  font-size:50px; 
+  font-family:'MS Gothic';
+  padding: 15px;
+ }
+ .form-title{
+  text-align:center;
+  font-size:30px;
+  padding-top:30px;
+  font-weight:5px;
+ }
+ .item{
+  text-align:center;
+  margin:20px 0px;
+  height:100%;
+ }
+ .form-item{
+  padding: 5px 0px 10px 0;
+  color:black;
+ }
+ input[type="text"]{
+  height:30px;
+  width:50%;
+ }
+ .main{
+  height:650px;
+  width:100%;
+  
+ }
+ .user-form{ 
+  background-color:white; 
+  margin:70px 500px 0px 500px;
+  box-shadow:3px 0px 5px #3c3c3c; 
+ }
+ .header-menu-t a{
+    float:right;
+    line-height:65px;
+    margin:0 30px;
+ }
+ input[type="submit"]{
+    text-align:center;
+    width:40%;
+    
+}
+
+ 
