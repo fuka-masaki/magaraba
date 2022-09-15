@@ -1,47 +1,342 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Manga</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <%= csrf_meta_tags %>
-        <%= csp_meta_tag %>
-        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= yield :css %>
-        <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    </head>
+  <html>
+  <head>
+    <%= display_meta_tags(default_meta_tags) %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/51e230d6b8.js" crossorigin="anonymous"></script>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+  </head>
+  
+  <body>
+    <div id="all">
+      <div id="container">
+        <div class="mobile-menu__cover"></div>
+        <div class="user_icon__cover"></div>
+        <div class="no_user_icon__cover"></div>
+        <div class="article_menu_cover"></div>
+        <div class="smartphone_search_cover"></div>
+        <div  class="no_login_heart_cover"></div>
+        <div class="new_post_form_cover"></div>
+        <div class="no_login_new_post_form_cover"></div>
+        <div class="user_icon_change_cover"></div>
+        <div class="user_name_change_cover"></div>
+        <div class="user_name_pas_change_cover"></div>
+        <div class="best_comics_change_cover"></div>
+        <div class="know_comics_change_cover"></div>
+        <div class="show_comment_menu_cover"></div>
+        <div class="no_login_content_textarea_cover"></div>
+        <div class="comments_sort_cover"></div>
+        <div class="no_login_new_post_form_show">
+          <div class="no_login_new_post_form_x_btn"><i class="fa-solid fa-xmark"></i></div>
+          <h1>ログイン</h1>
+          <span>ログインすると</span>
+          <span>簡単に投稿</span>
+          <span>をすることができます</span>
+          <%= link_to "ログインする", "/login" %>
+          <%= link_to "新規登録する", "/users/shinki" %>
+        </div>
 
-    <body>
-    
+        <div class="no_login_heart_show">
+          <div class="no_login_heart_x_btn"><i class="fa-solid fa-xmark"></i></div>
+          <h1>ログイン</h1>
+          <span>ログインすると</span>
+          <span>投稿にいいね</span>
+          <span>をすることができます</span>
+          <%= link_to "ログインする", "/login" %>
+          <%= link_to "新規登録する", "/users/shinki" %>
+        </div>
+        <div class="no_login_content_textarea_show">
+          <div class="no_login_content_textarea_x_btn"><i class="fa-solid fa-xmark"></i></div>
+          <h1>ログイン</h1>
+          <span>ログインすると</span>
+          <span>簡単にコメント</span>
+          <span>をすることができます</span>
+          <%= link_to "ログインする", "/login" %>
+          <%= link_to "新規登録する", "/users/shinki" %>
+        </div>
         <header>
-            <div class="container">
-                <div class="header-logo-t">
-                    <%= link_to("漫画考察サイト", "/home/top") %>
+          <ul class="nav">
+            <li class="mbtn">
+              <button class="mobile-menu__btn">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </li>
+              <li class="logo">
+                <%= link_to "マガラバ", "/home/top" %>
+              </li>
+              <li class="search_btn">
+                <i class="fa-solid fa-magnifying-glass smartphone_search_btn_show"></i>
+                <%= form_tag home_search_path, method: :get ,class: "post_search" do %>
+                  <%= text_field_tag :q,nil, id:"search-bar",value:"#{@search}"%>
+                  <div class="search_option">
+                    <div class="search_x_btn">
+                      <i class="fa-solid fa-xmark search_x_btn_icon"></i>
+                      <span class="search_x_btn_border"></span>
+                    </div>
+                    <%= button_tag type: :submit ,class:"search_btn_icon" do %>
+                      <i class="fa-solid fa-magnifying-glass search_icon"></i>
+                    <% end %>  
+                  </div>
+                <% end %>  
+              </li>
+              <li class="user_icon">
+                <% if @current_user %>
+                  <%= image_tag "/user_images/#{@current_user.image_name}" , class:"user_icon_image" %>
+                <% else %>
+                <div class="no_login_user_icon user_icon_image">
+                  <i class="fa-regular fa-circle-user"></i>
                 </div>
-                <div class="header-menu-t">
-                    <% if session[:user_id] %>     
-                        <div>
-                            <%= link_to("ログアウト","/logout", {method: "post"})%>
-                        </div>
-                    <% else %>
-                        <div class="header-login-t">
-                            <%= link_to("ログイン","/login") %>
-                        </div>
-                        <div class="header-shinki-t">           
-                            <%= link_to("新規登録","/users/shinki") %>
-                        </div>
+                <% end %>
+                <span><%# @current_user.name%></span>
+                <div class="user_icon_show">
+                  <div class="x_btn">
+                    <i id="x_btn_user_icon" class="fa-solid fa-xmark no_x_btn_user_icon"></i>
+                  </div>
+                  <% if session[:user_id] %> 
+                    <%= link_to "/logout", method: :post,data: {confirm: "ログアウトしますか？"},class:"user_icon_logout" do %>
+                      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                      <span>ログアウト</span>
                     <% end %>
-                    <div>            
-                        <%= link_to("お問合わせ","/users/inquiry") %>
-                    </div>                   
+                      <%= link_to "/home/top_my_post" do %>
+                        <i class="fa-regular fa-bookmark"></i>
+                        <span>マイページ</span>
+                      <% end %>
+                  <% else %>
+                    <%= link_to "/users/shinki" do %>
+                      <i class="fa-solid fa-door-open"></i>
+                      <span>新規登録</span>
+                    <% end %>
+                    <%= link_to "/login" do  %>
+                      <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                      <span>ログイン</span>
+                    <% end %>
+                  <% end %>
                 </div>
-            </div>
-        </header>  
+              </li>
+              <li class="smartphone_search_btn">
+                <div class="smartphone_search_return">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </div>
+                <%= form_tag home_search_path, method: :get ,class: "smartphone_post_search" do %>
+                  <%= text_field_tag :q,nil, id:"smartphone_search-bar",value:"#{@search}"%>
+                  <div class="smartphone_search_option">
+                    <div class="smartphone_search_x_btn">
+                      <i class="fa-solid fa-xmark smartphone_search_x_btn_icon"></i>
+                      <span class="smartphone_search_x_btn_border"></span>
+                    </div>
+                    <%= button_tag type: :submit ,class:"smartphone_search_btn_icon" do %>
+                      <i class="fa-solid fa-magnifying-glass smartphone_search_icon"></i>
+                    <% end %>  
+                  </div>
+                <% end %> 
+                <div class="smartphone_search_margin_box"></div>
+              </li>
+          </ul>
+        </header>
         <% if flash[:notice]%>
-            <div class="flash">
-                <%= flash[:notice] %>
-            </div>
+          <div class="flash">
+            <%= flash[:notice] %>
+          </div>
         <% end %>
-        <%= yield %>
-    </body>
+        <main>
+          <aside id="aside_left">
+            <ul class="nav_pc">
+              <li>
+                <%= link_to "/home/top"  do %>
+                  <div>
+                    <i class="fa-solid fa-house"></i>
+                    <span>ホーム</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-angle-right aside_menu_right_icon"></i>
+                  </div>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "/home/comics_index"  do %>
+                  <div>
+                    <i class="fa-solid fa-book"></i>
+                    <span>漫画一覧</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-angle-right aside_menu_right_icon"></i>
+                  </div>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "/home/top_super_new"  do %>
+                  <div>
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>投稿一覧</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-angle-right aside_menu_right_icon"></i>
+                  </div>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "/users/top_favorite"  do %>
+                  <div>
+                    <i class="fa-regular fa-heart aside_menu_icon"></i>
+                    <span>お気に入り</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-angle-right aside_menu_right_icon"></i>
+                  </div>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "/home/top_my_post"  do %>
+                  <div>
+                    <i class="fa-regular fa-bookmark aside_menu_icon"></i>
+                    <span>マイページ</span>
+                  </div>
+                  <div>
+                    <i class="fa-solid fa-angle-right aside_menu_right_icon"></i>
+                  </div>
+                <% end %>
+              </li>
+            </ul>
+          </aside>
+          <div class="main-t_cover">
+            <%= breadcrumbs separator: " > " %>
+            <%= yield %>
+            <% if @current_user == nil %>
+            <div class="new_post_form_icon no_login_new_post_form">
+                <i class="fa-regular fa-pen-to-square"></i>
+                <span>投稿する</span>
+              </div>
+            <% else %>
+              <div class="new_post_form_icon login_new_post_form">
+                <i class="fa-regular fa-pen-to-square"></i>
+                <span>投稿する</span>
+              </div>
+              <div class="new_post_form_area">
+                  <div class="new_post_form_x_btn">
+                    <i class="fa-solid fa-xmark"></i>
+                  </div>
+                <div class="new_post_form_content">
+                  <h1><i class="fa-regular fa-pen-to-square"></i>新規投稿</h1>
+                  <hr>
+                  <%# @post.errors.full_messages.each do |message| %>
+                    <%# message %>
+                  <%# end %>
+                  <%= form_tag("/posts/create") do %>
+                    <div class="comic_name_select_tag_area">
+                      <label class="new_post_comic_name_label">漫画名</label>
+                      <%= select_tag :comic, options_for_select(Comic.all.map { |comic| [comic.name] },"#{@show_each_comic if @show_each_comic.present? }") ,class:"comic_name_select_tag js-select new_post_comic_name_select_tag" %>
+                    </div>
+                    <div class="new_post_tittle_area">
+                      <label class="new_post_tittle_label">タイトル</label>
+                      <textarea name="Title" class="new_post_tittle_textarea new_post_textarea" rows="1"></textarea> 
+                    </div>
+                    <div class="new_post_content_area">
+                      <label class="new_post_content_label">内容</label>
+                      <textarea name="content" class="new_post_content_textarea new_post_textarea" rows="4"></textarea> 
+                    </div>
+                    <div class="new_post_submit">      
+                      <div class="new_post_submit_margin"></div>    
+                      <div class="new_post_submit_btn_area">
+                        <input type="submit" value="投稿" class="new_post_submit_btn">          
+                      </div>
+                    </div> 
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <aside id="aside_right">
+          </aside>
+        </main>
+        <footer>
+          <div class="inquiry">
+            <div>
+              <div class="twitter_comment_1">
+                マガラバに追加してほしい漫画やご意見等<span>ありましたら</span>
+              </div>
+              <div class="twitter_comment_2">
+                <span><i class="fa-brands fa-twitter"></i>Twitter</span>のDMにてドシドシお願いします！
+              </div>
+            </div>
+            <%= link_to "https://twitter.com/MG_and_MN",target: :_blank, rel: "noopener noreferrer",class:"inquiry_twitter_link" do %>
+              DMはこちら
+              <i class="fa-solid fa-exclamation"></i>
+            <% end %>
+          </div>
+          <div class="footer_tittle">
+            <h1>マガラバ</h1> 
+          </div>
+        </footer>
+      </div>
+      <nav class="mobile-menu">
+        <ul class="mobile-menu__main">
+          <li class="mobile-menu__item">
+            <h1>マガラバ</h1>
+          </li>
+          <li class="mobile-menu__item">
+            <%= link_to "/home/top", class:"mobile-menu__link" do %>
+              <div>
+                <i class="fa-solid fa-house"></i>
+                <span class="main-title">ホーム</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-angle-right menu_right_icon"></i>
+              </div>
+            <% end %>
+          </li>
+          <li class="mobile-menu__item">
+            <%= link_to "/home/comics_index", class:"mobile-menu__link" do %>
+              <div>
+                <i class="fa-solid fa-book"></i>
+                <span class="main-title">漫画一覧</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-angle-right menu_right_icon"></i>
+              </div>
+            <% end %>
+          </li>
+          <li class="mobile-menu__item">
+            <%= link_to "/home/top_super_new", class:"mobile-menu__link" do %>
+              <div>
+                <i class="fa-solid fa-book-open"></i>
+                <span class="main-title">投稿一覧</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-angle-right menu_right_icon"></i>
+              </div>
+            <% end %>
+          </li>
+          <li class="mobile-menu__item">
+            <%= link_to "/users/top_favorite", class:"mobile-menu__link" do %>
+              <div>
+                <i class="fa-regular fa-heart mobile_menu_icon"></i>
+                <span class="main-title">お気に入り</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-angle-right menu_right_icon"></i>
+              </div>
+            <% end %>
+          </li>
+          <li class="mobile-menu__item">
+            <%= link_to "/home/top_my_post", class:"mobile-menu__link" do %>
+              <div>
+                <i class="fa-regular fa-bookmark mobile_menu_icon"></i>
+                <span class="main-title">マイページ</span>
+              </div>
+              <div>
+                <i class="fa-solid fa-angle-right menu_right_icon"></i>
+              </div>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/3.0.20/autosize.min.js" integrity="sha512-EAEoidLzhKrfVg7qX8xZFEAebhmBMsXrIcI0h7VPx2CyAyFHuDvOAUs9CEATB2Ou2/kuWEDtluEVrQcjXBy9yw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </body>
 </html>

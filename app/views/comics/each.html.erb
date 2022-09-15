@@ -1,85 +1,101 @@
-<% content_for :css do %>
-<%= stylesheet_link_tag 'top' %>
-<% end %>
+<% breadcrumb :each, @comic %>
 <div class="main-t">    
-    <div class="ichiran">
-        <div class="ichiran-title">漫画一覧</div>
-
-        <div class="comics">
-            <div class="comic">
-                <%= link_to("ONE PIECE",comics_each_path(id:1))%>
-            </div>
-            <div class="comic">                   
-                <%= link_to("HUNTER×HUNTER",comics_each_path(id:2))%>
-            </div>
-            <div class="comic">                 
-                <%= link_to("東京卍リベンジャーズ",comics_each_path(id:3))%>
-            </div>
-            <div class="comic">                 
-                <%= link_to("呪術廻戦",comics_each_path(id:4))%>
-            </div>                           
-            <div class="comic">                    
-                <%= link_to("怪獣8号",comics_each_path(id:5))%>
-            </div>
-            <div class="comic">                  
-                <%= link_to("キングダム",comics_each_path(id:6))%>
-            </div>
-            <div class="comic">                  
-                <%= link_to("名探偵コナン",comics_each_path(id:7))%>
-            </div>
-            <div class="comic">                  
-                <%= link_to("僕のヒーローアカデミア",comics_each_path(id:8))%>
-            </div>           
-            <div class="comic">                   
-                <%= link_to("ワンパンマン",comics_each_path(id:9))%>
-            </div>
-            <div class="comic">                         
-                <%= link_to("ワールドトリガー",comics_each_path(id:10))%>
-            </div>   
-            <div class="comic">                 
-                <%= link_to("ブラッククローバー",comics_each_path(id:11))%>
-            </div>      
-            <div class="comic">                               
-                <%= link_to("推しの子",comics_each_path(id:12))%>
-            </div>       
-        </div class="comics">
-    </div class="ichiran">
-    <div class="top-center">
-        <div class="top-kind">
-            <div class="search">
-                <li><i class="fas fa-search"></i></li>
-                <%= search_form_for @q , url: home_search_path do |f| %>
-                                    <%= f.label :Manga_name_cont, '漫画名' %>
-                                    <%= f.search_field :Manga_name_cont %>
-                                    <br>
-                                    <%= f.submit '検索' %>
-                        <% end %>
-            </div class="search">
-            <div class="popular">
-                <%= link_to("人気","/home/top")%>
-            </div class="popular">
-            <div class="super-new">
-                <%= link_to("最新","/home/top_super_new")%>
-            </div class="super-new">
-            <div class="favorite">
-                <%= link_to("お気に入り","/home/top_favorite")%>
-            </div class="favorite">
-            <div class="my-post">
-                <%= link_to("自分の投稿","/home/top_my_post")%>
-            </div class="my-post">    
-        </div class="top-kind">       
-
-        <div class="container">
+    <div class="container">
+        <div class="each">
             <div class="top">
-                <p>トップ><%= @comic.name %></p>
+                <div class="<%=@ranking_label%>"><%= @ranking_tittle %><%= @ranking_id %>位</div>
+                <h1><%= @comic.name %></h1>
             </div>
-            <div class="new-post">
-                <%= link_to("新しく投稿","/comics/new_each/#{@comic.id}")%>        
+            <ul class="each_post_tab">
+                <li class="each_post_tab_list_item <%= @each_post_new_ranks_tab %>"><h2>新着順</h2></li>
+                <li class="each_post_tab_list_item <%= @each_post_view_ranks_tab %>"><h2>閲覧順</h2></li>
+                <li class="each_post_tab_list_item <%= @each_post_like_ranks_tab %>"><h2>いいね順</h2></li>
+            </ul>
+        <% if @posts.present? %>
+            <div class="tab_each_post_content <%= @each_post_new_ranks_tab_content %>">
+                <ul class="article_index">
+                    <% @each_post_new_ranks.each do |each_post_new_rank| %>
+                        <% set_meta_tags title: "【#{@comic.name}】漫画考察・ネタバレ・感想を投稿・共有するなら", description: each_post_new_rank.Title + " | " + each_post_new_rank.content %>
+                        <li>
+                        <section class="article_main post_link neumorphism">
+                            <%= link_to "",post_show_path(id: each_post_new_rank.id), class:"article_main_link_cover" %>
+                            <%= render 'posts/post', post: each_post_new_rank %>
+                        </section>
+                        <section class="little_show_comment">
+                            <ul>
+                            <% post_comments = Post.where(parent_id: each_post_new_rank.id) %>
+                            <% post_comments.first(2).each do |post_comment|%>
+                                <%= render 'posts/comment_2', post: post_comment %>
+                            <% end %>
+                            </ul>
+                            <% if post_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{each_post_new_rank.id}", class: "comment_more_show"%>
+                            <% end %>
+                        </section>
+                        </li>
+                    <% end %>
+                </ul> 
+            <%= paginate @each_post_new_ranks ,:param_name => 'each_post_new_ranks_page',params: {:each_tab_class =>"each_post_new_ranks"} %>
             </div>
-                <% @posts.each do |post| %>
-            <div class="post">
-                <%= link_to(post.content,"/posts/#{post.id}" ) %>
+            <div class="tab_each_post_content <%= @each_post_view_ranks_tab_content %>">
+                <ul class="article_index">
+                    <% @each_post_view_ranks.each do |each_post_view_rank| %>
+                        <li>
+                        <section class="article_main post_link neumorphism">
+                            <%= link_to "",post_show_path(id: each_post_view_rank.id), class:"article_main_link_cover"  %>
+                            <%= render 'posts/post', post: each_post_view_rank %>
+                        </section>
+                        <section class="little_show_comment">
+                            <ul>
+                            <% post_comments = Post.where(parent_id: each_post_view_rank.id) %>
+                            <% post_comments.first(2).each do |post_comment|%>
+                                <%= render 'posts/comment_2', post: post_comment %>
+                            <% end %>
+                            </ul>
+                            <% if post_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{each_post_view_rank.id}", class: "comment_more_show"%>
+                            <% end %>
+                        </section>
+                        </li>
+                    <% end %>
+                </ul> 
+                <%= paginate @each_post_view_ranks,:param_name => 'each_post_view_ranks_page', params: {:each_tab_class =>"each_post_view_ranks"}%>
             </div>
-            <% end %>         
-    </div class="top-center">   
+            <div class="tab_each_post_content <%= @each_post_like_ranks_tab_content %>">
+                <ul class="article_index">
+                    <% @each_post_like_ranks.each do |each_post_like_rank| %>
+                        <li>
+                        <section class="article_main post_link neumorphism">
+                            <%= link_to "",post_show_path(id: each_post_like_rank.id), class:"article_main_link_cover"  %>
+                            <%= render 'posts/post', post: each_post_like_rank %>
+                        </section>
+                        <section class="little_show_comment">
+                            <ul>
+                            <% post_comments = Post.where(parent_id: each_post_like_rank.id) %>
+                            <% post_comments.first(2).each do |post_comment|%>
+                                <%= render 'posts/comment_2', post: post_comment %>
+                            <% end %>
+                            </ul>
+                            <% if post_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{each_post_like_rank.id}", class: "comment_more_show"%>
+                            <% end %>
+                        </section>
+                        </li>
+                    <% end %>
+                </ul> 
+                <%= paginate @each_post_like_ranks,:param_name => 'each_post_like_ranks_page',params: {:each_tab_class =>"each_post_like_ranks"} %>
+            </div>
+        <% else %>
+            <div class="each_post_not">
+                <div class="each_post_nil">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <span>投稿がありません</span>
+                    <span>気軽に投稿してみよう！</span>
+                    <div class="my_post_nil_new_post_btn">投稿してみる</div>
+                </div>
+            </div>
+        <% end %>
+        </div>
+    </div> 
 </div>
+            

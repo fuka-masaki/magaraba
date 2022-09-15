@@ -1,25 +1,31 @@
- <div class="main-t"> 
-    
-    <main>   
-     <%= form_tag("/users/create_user") do %>
-      <div class="container2">  
-        <div class="user-form">
-          <div class="form-title">新規登録</div>
-            <div class="item">
-             <div class="form-item">ユーザーネーム</div>
-             <input type="text" name="name">
-             <div class="form-item">パスワード</div>
-             <input type="text" name="password">
-             <br></br>
-             <div class="botton">
-             <input type="submit" value="登録する">
-             </div>
-            </div>
-          </div>  
-        </div>    
+<div class="main-t login_show_background_color"> 
+  <%= form_tag("/users/create_user",onsubmit:"return false;") do %>  
+    <div class="login_show">  
+      <h1>新規登録</h1>
+      <div class="shinki_form_area">
+        <% if @error_message %>
+          <div class="login_error">
+            <%= @error_message %>
+          </div> 
         <% end %> 
-        
-    </main>
-
- </div>   
-  
+        <span class="shinki_name_length_over_error">ユーザー名は30文字以内にしてください</span>
+        <div class="shinki_show_form_area">
+          <label class="user_label">ユーザー名</label>
+          <input type="text" name="name" value="<%= @name %>" class="shinki_show_form shinki_show_form_name">
+        </div>
+        <span class="pass_not_equal_error">パスワードが一致していません</span>
+        <div class="shinki_show_form_area">
+          <label class="password_label">パスワード</label>
+          <input type="text" name="password1" value="<%= @password %>" class="shinki_show_form shinki_show_password">
+        </div>
+        <div class="shinki_show_form_area">
+          <label class="password_label">パスワード確認</label>
+          <input type="text" name="password2" value="<%= @password_confirmation %>" class="shinki_show_form shinki_show_form_password_confirmation">
+        </div>
+        <div class="login_btn_cover shinki_btn_margin">
+          <input type="button" onclick="submit();" value="登録する" class="shinki_btn">
+        </div>
+      </div>
+    </div>   
+  <% end %> 
+</div>   

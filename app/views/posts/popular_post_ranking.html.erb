@@ -1,0 +1,88 @@
+<% set_meta_tags title: "人気投稿ランキング 漫画考察・ネタバレ・感想を投稿・共有するなら"  %>
+<% breadcrumb :popular_post_ranking %>
+<div class="main-t"> 
+    <div class="container">
+        <article class="popular_articles popular_articles_pc popular_post_index">
+            <h1>
+                <i class="fa-solid fa-crown"></i>
+                <span>人気記事</span>
+            </h2>
+            <ul class="tab">
+                <li class="tab_list_item <%= @yesterday_tab %>"><h4>昨日</h4></li>
+                <li class="tab_list_item  <%= @week_tab %>"><h4>週間</h4></li>
+                <li class="tab_list_item  <%= @month_tab %>"><h4>月間</h4></li>
+            </ul>
+            <div class="popular_article_content">
+                <ul class="tab_content tab_popular_article_content yesterday_tab_content <%= @yesterday_content %>"> 
+                    <% @yesterday_post_like_ranks.each.with_index(1) do |yesterday_post_like_rank,i| %> <!--昨日投稿の上位3つを表示-->
+                        <li>
+                        <section class="article_main post_link popular_article neumorphism">
+                            <div class="ranking_label popular_ranking"><%= i  %></div>
+                            <%= link_to "",post_show_path(id: yesterday_post_like_rank.id, ranking: "popular_ranking",for: "yesterday", num: i), class:"article_main_link_cover"  %> 
+                            <%= render 'posts/post', post: yesterday_post_like_rank %>
+                        </section>
+                        <section class="little_show_comment">
+                            <ul>
+                            <% yesterday_post_like_ranks_comments = Post.where(parent_id: yesterday_post_like_rank.id) %>
+                            <% yesterday_post_like_ranks_comments.slice(0..1).each do |yesterday_post_like_ranks_comment|%>
+                                <%= render 'posts/comment_2', post: yesterday_post_like_ranks_comment %>            
+                            <% end %>
+                            </ul>
+                            <% if yesterday_post_like_ranks_comments.count >= 3 %>
+                            <%= link_to "さらにコメントを表示", "/posts/#{yesterday_post_like_rank.id}", class: "comment_more_show"%>
+                            <% end %>
+                        </section>
+                        </li>
+                    <% end %>
+                    <%= paginate @yesterday_post_like_ranks,:param_name => 'yesterday_post_like_ranks_page', params: {:post_ranking_tab_class =>"yesterday_post_like_ranks"}%>
+                </ul>
+                <ul class="tab_content tab_popular_article_content week_tab_content <%= @week_content %> "> 
+                    <% @week_post_like_ranks.each.with_index(1) do |week_post_like_rank,i| %> <!--週間投稿の上位3つを表示-->
+                        <li>
+                            <section class="article_main post_link popular_article neumorphism">
+                                <div class="ranking_label popular_ranking"><%= i %></div>
+                                <%= link_to "",post_show_path(id: week_post_like_rank.id, ranking: "popular_ranking",for: "week", num: i), class:"article_main_link_cover"  %> 
+                                <%= render 'posts/post', post: week_post_like_rank %>
+                            </section>
+                            <section class="little_show_comment">
+                                <ul>
+                                <% week_post_like_rank_comments = Post.where(parent_id: week_post_like_rank.id) %>
+                                <% week_post_like_rank_comments.slice(0..1).each do |week_post_like_rank_comment|%>
+                                    <%= render 'posts/comment_2', post: week_post_like_rank_comment %>            
+                                <% end %>
+                                </ul>
+                                <% if week_post_like_rank_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{week_post_like_rank.id}", class: "comment_more_show"%>
+                                <% end %>
+                            </section>
+                        </li>
+                    <% end %>
+                    <%= paginate @week_post_like_ranks,:param_name => 'week_post_like_ranks_page', params: {:post_ranking_tab_class =>"week_post_like_ranks"} %>
+                </ul>
+                <ul class="tab_content tab_popular_article_content month_tab_content <%= @month_content %>"> 
+                    <% @month_post_like_ranks.each.with_index(1) do |month_post_like_rank, i| %> <!--月間投稿の上位3つを表示-->
+                        <li>
+                            <section class="article_main post_link popular_article neumorphism">
+                                <div class="ranking_label popular_ranking"><%= i %></div>
+                                <%= link_to "",post_show_path(id: month_post_like_rank.id, ranking: "popular_ranking",for: "month", num: i), class:"article_main_link_cover"  %> 
+                                <%= render 'posts/post', post: month_post_like_rank %>
+                            </section>
+                            <section class="little_show_comment">
+                                <ul>
+                                <% month_post_like_rank_comments = Post.where(parent_id: month_post_like_rank.id) %>
+                                <% month_post_like_rank_comments.slice(0..1).each do |month_post_like_rank_comment| %>
+                                    <%= render 'posts/comment_2', post: month_post_like_rank_comment %>            
+                                <% end %>
+                                </ul>
+                                <% if month_post_like_rank_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{month_post_like_rank.id}", class: "comment_more_show"%>
+                                <% end %>
+                            </section>
+                        </li>
+                    <% end %>
+                    <%= paginate @month_post_like_ranks,:param_name => 'month_post_like_ranks_page', params: {:post_ranking_tab_class =>"month_post_like_ranks"}  %>
+                </ul>
+            </div>
+        </article>
+    </div>
+</div>

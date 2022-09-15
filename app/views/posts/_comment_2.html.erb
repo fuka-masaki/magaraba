@@ -1,0 +1,30 @@
+<!--返信無し.ver 主にtop-->
+<li>
+<div class="article_main_comment neumorphism">
+   <%= link_to "/home/user_post/#{post.user.id}" do %>
+      <div class="article_main_comment_icon"><img src="<%= "/user_images/#{post.user.image_name}" %>" class="user_icon_image comment_2_user_icon" ></div>
+   <% end %>
+   <div class="article_main_comment_info">
+      <div class="article_main_comment_names">
+         <%= link_to "/home/user_post/#{post.user.id}" do %>
+            <span class="article_main_comment_name"><%= post.user.name %></span>
+         <% end %>
+         <span class="article_main_comment_date"><%= time_ago_in_words(post.created_at) %>前</span>
+      </div>
+      <div class="article_main_comment_replay">@<%= Post.find(post.parent_id).user.name %></div> 
+      <div class="article_main_comment_contain"><%=safe_join(post.content.split("\n"),tag(:br)) %></div>
+      <hr class="article_main_comment_line">             
+      <div class="article_main_comment_icons_nums">
+         <div class="article_main_comment_icon_num_heart">
+            <div class="likes_buttons_<%= post.id %>">
+               <%= render 'likes/like', post: post, current_user: @current_user %>
+            </div>
+         </div> 
+         <div class="article_main_comment_replay_icon_num replay_icon_num_comment_2">
+            <div class="article_main_comment_replay_icon"><i class="fa-regular fa-comment "></i></div>
+            <div class="article_main_comment_replay_num"><%= Post.where(parent_id: post.id).count %></div>
+         </div>
+      </div>
+   </div>
+</div>
+</li>

@@ -1,0 +1,77 @@
+// 選択エリアの選択された要素のデザイン
+.select2-results__option--highlighted{
+    background-color: #00a1ba !important;
+    color: #f4f5f7 !important;
+}
+// セレクトタグの表記エリア
+.select2-selection--single{
+    padding: 0px 9px;
+    height: 43px !important;
+    outline: none !important;
+    background-color: #f4f5f7 !important;
+    color: #545454 !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 23px !important;
+    width: 270px !important;
+    &:focus{
+        border: 1px solid #00a1ba !important;
+    }
+}
+
+.select2-container--default{
+    width: 270px !important;   
+}
+.select2-dropdown--below{
+    background-color: #f4f5f7 !important;
+    border: 1px solid #d7d7d780;
+    border-radius: 0 0 2px 2px ;
+    .select2-search__field{
+        color:#666666 ;
+        background-color: #f4f5f7;
+        border: 1px solid #dadada !important;
+        border-radius: 23px;
+        outline: none;
+        padding-left: .8rem;
+        transition: all .3s;
+
+        &:focus{
+            border: 1px solid #00a1ba !important;
+        }
+        
+    }
+}
+// バツボタンのデザイン
+.select2-selection__clear{
+    color: #8b8787;
+    margin-right: 22px !important;
+    line-height: 38px;
+}
+// 三角ボタンのデザイン
+.select2-selection__arrow{
+    right: 11px !important;
+    height: 40px !important;
+}
+#select2-comic-container{
+    line-height: 42px;
+    font-size: 1.2rem;
+    color: #545454;
+}
+.select2-results__message{
+    color: #545454;
+}
+@media screen and(max-width: 350px) {
+    .select2-selection--single{
+        width: 240px !important;
+    }
+    .select2-container--default{
+        width: 240px !important;   
+    }
+}
+@media screen and(min-width:760px){
+    .select2-selection--single{
+        width: 400px !important;
+    }
+    .select2-container--default{
+        width: 400px !important;   
+    }
+}

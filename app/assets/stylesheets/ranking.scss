@@ -1,0 +1,94 @@
+// 人気漫画ランキングの続き
+.popular_mangas{
+    &.popular_comics_ranking_index{
+        margin-top: 0;
+    }
+    & > h1{
+        position: relative;
+        color: #484848;
+        font-size: 1.7rem;
+        margin-bottom: 1.7rem;
+        &::after{
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            content: '';
+            border-radius: 3px;
+            background-image: -webkit-gradient(linear, right top, left top, from(#fff23a), to(#e0a208));
+            background-image: -webkit-linear-gradient(right, #fff23a 0%, #e0a208 100%);
+            background-image: linear-gradient(to left, #fff23a 0%, #e0a208 100%);
+            background-image: linear-gradient(270deg, #fff23a, #e0a208 100%);
+        }
+        & > i{
+            color: yellow;
+            background: -webkit-linear-gradient(232deg, #fff23a, #e0a208 120%);
+            -webkit-background-clip: text;//テキストでくり抜く
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+// 急上昇ランキングの続き
+.hot_articles{
+    &.hot_ranking_index{
+        margin-top: 0;
+    }
+    & > h1{
+        position: relative;
+        color: #484848;
+        font-size: 1.7rem;
+        margin-bottom: 1.7rem;
+        &::after{
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            content: '';
+            border-radius: 3px;
+            background-image: -webkit-gradient(linear, right top, left top, from(#f5973f), to(#f80f0f));
+            background-image: -webkit-linear-gradient(right, #f5973f 0%, #f80f0f 100%);
+            background-image: linear-gradient(to left, #f5973f 0%, #f80f0f 100%);
+        }
+        & > i{
+            padding-right: 3px;
+            color:red;
+            background: -webkit-linear-gradient(90deg, rgba(248, 15, 15, 1), rgba(245, 151, 63, 1));
+            -webkit-background-clip: text;//テキストでくり抜く
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+// 人気記事ランキングの続き
+.popular_articles_pc{
+
+    &.popular_post_index{
+        margin-top: 0;
+    }
+    & > h1{
+        position: relative;
+        color: #484848;
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 1.4rem;
+        &::after{
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            content: '';
+            border-radius: 3px;
+            background-image: -webkit-gradient(linear, left top, right top, from(#41a4fd), to(#0ef4ff));
+            background-image: -webkit-linear-gradient(left, #41a4fd 18%, #0ef4ff 100%);
+            background-image: linear-gradient(to right, #41a4fd 18%, #0ef4ff 100%);
+            background-image: linear-gradient(90deg, #41a4fd 18%, #0ef4ff);
+        }
+        & > i{
+            background: -webkit-linear-gradient(66deg, #41a4fd 18%, #0ef4ff 59%);
+            -webkit-background-clip: text;//テキストでくり抜く
+            -webkit-text-fill-color: transparent
+        }
+    }
+}

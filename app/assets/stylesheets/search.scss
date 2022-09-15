@@ -1,0 +1,217 @@
+.search_result{
+    & > h1{
+        font-size: 2rem;
+        position: relative;
+        margin-bottom: 5px;
+        color: #484848;
+        &::after{
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            content: '';
+            border-radius: 3px;
+            background-color: #ffa459;
+            background-image: linear-gradient(90deg, #ff7112, #ffe07b);
+        }
+        & > i{
+            margin-right: 5px;
+            color: #ff7708;
+            background-image: linear-gradient(305deg, rgba(255, 113, 18, 1) 28% 29%, rgba(255, 224, 123, 1));
+            -webkit-background-clip: text;//テキストでくり抜く
+            -webkit-text-fill-color: transparent;
+        }
+    }
+    .tab{
+        .search_tab_list_item{
+            &.here_tab{      
+                color: #ffa459; 
+                &::after{
+                    background-color: #ffa459;
+                    background-image: linear-gradient(90deg, #ff7112, #ffe07b);
+                    
+                }
+            }
+        }
+    }
+    .search_user_li{
+        margin-bottom:1rem;
+        list-style: none;
+    }
+    .search_user_link_cover{
+        text-decoration: none;
+    }
+}
+// ユーザー検索結果スマホ版
+.search_user{
+    padding: 10px;
+    border-radius: 13px;
+    transition: all .2s;
+    &:hover{
+        filter: brightness(98%);
+        // opacity: .8;
+        box-shadow: -2px -2px 6px rgba(255, 255, 255, .6),
+                    -2px -2px 4px rgba(255, 255, 255, .4),
+                    2px 2px 2px rgba(255, 255, 255, .05),
+                    2px 2px 4px rgba(0, 0, 0, .1);
+        .search_user_info{
+            // .search_user_name{
+            //     // text-decoration: underline;
+            // }
+        }
+    }
+}
+.search_user_icon{
+    text-align: center;
+    .search_user_img{
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+    }
+}
+.search_user_info{
+    .search_user_name{
+        color: #151515;
+        font-size:1.3rem;
+        font-weight: bold;
+    }
+    .search_user_post_count{
+        margin-top: 4px;
+        margin-right: 5px;
+        text-align: right;
+        color: #6d6d6d;
+    }
+}
+.search_user_most_coimcs{
+    & > span{
+        font-weight: 600;
+        color: #6d6c6c;
+        font-size: 1.1rem;
+    }
+    .user_most_like_content{
+        list-style: none;
+        margin-bottom: 0;
+        border-radius: 5px;
+        background-color: #e4e5e5;
+        padding: 8px 0;
+        justify-content: center;
+        font-weight: bold;
+        .user_most_like_comic{   
+            color: #4d5559;
+            font-size: 1.1rem;
+            padding-right: 3.2rem;
+        }
+    }
+}
+
+
+// ユーザー検索PC,タブレット版
+@media screen and(min-width:600px){
+    .search_user{
+        display:flex;
+    }
+    .search_user_icon{
+        margin-right: 8px;
+        flex: 1;
+        .search_user_img{
+            width: 55px;
+            height: 55px;
+            margin-top: 2px;
+        }
+    }
+    .search_user_info{
+        flex: 11;
+        .search_user_name{
+            color: #151515;
+            font-size:1.3rem;
+            font-weight: bold;
+        }
+        .search_user_post_count{
+            margin-top: 4px;
+            margin-right: 5px;
+            text-align: right;
+            color: #6d6d6d;
+        }
+    }
+    .search_user_link_icon{
+        flex:1;
+    }
+    .search_user_most_coimcs{
+        & > span{
+            font-weight: 600;
+            color: #6d6c6c;
+            font-size: 1.1rem;
+        }
+        .user_most_like_content{
+            margin-bottom: 0;
+            border-radius: 5px;
+            background-color: #e4e5e5;
+            padding: 8px 0;
+            display: flex;
+            justify-content: center;
+            .user_most_like_comic{   
+                color: #4d5559;
+                font-size: 1.1rem;
+                padding-right: 3.2rem;
+            }
+        }
+    }
+}
+
+.no_search_back{
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: -15px;
+    padding: 6rem 0;
+    height: 100vh;
+    .no_search{
+        background-color: white;
+        text-align: center;
+        border-radius: 23px;
+        padding: 2rem 0;
+        width: 90%;
+        margin: 0 auto;
+        & > i{
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: #8e8e8e;
+        }
+        & > span{
+            &:nth-of-type(1){
+                display: block;
+                color: #535353;
+                margin-bottom: 8px;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+            &:nth-of-type(2){
+                color: #ffbc42;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+            &:nth-of-type(3){
+                color: #535353;
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+        }
+        @media screen and(min-width:760px) {
+            padding: 3rem 0;
+            width: 500px;
+            & > i{
+                font-size: 8rem;
+            }
+            & > span{
+                &:nth-of-type(1){
+                    font-size: 1.3rem;
+                }
+                &:nth-of-type(2){
+                    font-size: 1.5rem;
+                }
+                &:nth-of-type(3){
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}

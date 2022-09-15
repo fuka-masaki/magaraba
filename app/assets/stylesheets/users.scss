@@ -1,143 +1,199 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
-/* ↓問い合わせCSS */
-.header-logo p{
-  text-align:center;
-  font-size:50px; 
-  font-family:'MS Gothic';
-  padding: 15px;
- }
- .form-title{
-  text-align:center;
-  font-size:30px;
-  padding-top:30px;
-  font-weight:5px;
- }
- .item{
-  text-align:center;
-  margin:20px 0px;
-  height:100%;
- }
- .form-item{
-  padding:0px 0 10px 0;
-  color:black;
- }
- 
- input[type="text"]{
-  height:30px;
-  width:50%;
- }
- main{
-  height:650px;
-  width:100%;
-  
- }
- .user-form{                             
-  background-color:white;            
-  margin:70px 500px 0px 500px;
-  box-shadow:3px 0px 5px #3c3c3c;
-  
- }
- textarea{
-    width:50%;
-    height:100px; 
- }
-
-
-/* ↓ログインページCSS */
-
- .header-logo p{
-  text-align:center;
-  font-size:50px; 
-  font-family:'MS Gothic';
-  padding: 15px;
- }
- .form-title{
-  text-align:center;
-  font-size:30px;
-  padding-top:30px;
-  font-weight:5px;
- }
- .item{
-  text-align:center;
-  margin:20px 0px;
-  height:100%;
- }
- .form-item{
-  padding: 5px 0px 10px 0;
-  color:black;
- }
- input[type="text"]{
-  height:30px;
-  width:50%;
- }
- .container2{
-  height:650px;
-  width:100%;
-  
- }
- .user-form{ 
-  background-color:white; 
-  margin:70px 500px 0px 500px;
-  box-shadow:3px 0px 5px #3c3c3c;
- 
- }
- 
-/* ↓新規登録CSS */
-*{
-  margin:0px;
-  padding:0px;
- }
- header{
-  background-color:rgba(253, 174, 83, 0.8);
-  height:80px;
- }
- .header-logo p{
-  text-align:center;
-  font-size:50px; 
-  font-family:'MS Gothic';
-  padding: 15px;
- }
- .form-title{
-  text-align:center;
-  font-size:30px;
-  padding-top:30px;
-  font-weight:5px;
- }
- .item{
-  text-align:center;
-  margin:20px 0px;
-  height:100%;
- }
- .form-item{
-  padding: 5px 0px 10px 0;
-  color:black;
- }
- input[type="text"]{
-  height:30px;
-  width:50%;
- }
- .main{
-  height:650px;
-  width:100%;
-  
- }
- .user-form{ 
-  background-color:white; 
-  margin:70px 500px 0px 500px;
-  box-shadow:3px 0px 5px #3c3c3c; 
- }
- .header-menu-t a{
-    float:right;
-    line-height:65px;
-    margin:0 30px;
- }
- input[type="submit"]{
-    text-align:center;
-    width:40%;
-    
+// ログイン画面のデザイン
+.login_show_background_color{
+    padding-top: 5rem;
+    margin-top: -20px;
+    background-color: #dcdcdc;
+    height: 100vh;
 }
+.login_error{
+    color: #e20404c9;
+    margin-bottom: 0.5rem;
+}
+.login_show{
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    // margin-top: 4rem;
+    border-radius: 2rem;
+    background-color: #efefef;
+    text-align: center;
+    & > h1{
+        margin-bottom: 2rem;
+        color: #2648a5;
+    }
+    .login_btn,.shinki_btn{
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1.7rem;
+        display:block;
+        border-radius: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 190px;
+        padding: 1rem 1rem;
+        transition: all .3s;
+        border: none;
+        outline: none;
+        background: #e4e4e4;
+        color: #6d6c6c;
+        opacity: 0.8;
+        pointer-events: none;
+        &.login_input_in_text{
+            pointer-events: auto;
+            background-color: #2d4ea5;
+            color: white;
+            opacity:1;
+            &:hover{
+                background-color:#4e67ab;
+            }
+        }
+        &.shinki_input_in_text{
+            pointer-events: auto;
+            background-color: #2d4ea5;
+            color: white;
+            opacity:1;
+            &:hover{
+                background-color:#4e67ab;
+            }
+        }
+    }
+    .login_show_form_area,.shinki_show_form_area{
+        position: relative;
+        width: fit-content;
+        margin: 0 auto;
+        .user_label,.password_label{
+            position: absolute;
+            left: 12%;
+            top: 12px;
+            padding: 0 2px;
+            background-color: #efefef;
+            color: #545454;
+            opacity: 0.8;
+            pointer-events: none;
+            -webkit-transition: top .2s ease-in-out, 
+                                font-size .2s ease-in-out;
+            transition: top .2s ease-in-out, 
+                        font-size .2s ease-in-out;
+            &.active{
+                left: 12%;
+                top: -8px;
+                padding: 0 2px;
+                font-size: .9rem;
+                color:#3879D9;
+                opacity: 1;
+            }
+        }
+    }
+    .pass_not_equal_error{
+        display:none;
+        color:#f84343;
+        margin-bottom: 7px;
+    }
+    .shinki_name_length_over_error{
+        display:none;
+        color: #f84343;
+        margin-bottom: 7px;
+    }
+    .shinki_form_area{
+        // パスワードが一致しないときに付与するクラス
+        &.pass_not_equal{
+            .pass_not_equal_error{
+                display:block;
+            }
+            .shinki_show_form_area{
+                .password_label{
+                    color:#f84343;
+                }
+                .shinki_show_form{
+                    &.shinki_show_password{
+                        border:2px solid #f84343;
+                    }
+                    &.shinki_show_form_password_confirmation{
+                        border:2px solid #f84343;
+                    }
+                }
+            }
+            .shinki_btn{
+                background: #e4e4e4;
+                color: #6d6c6c;
+                opacity: 0.8;
+                pointer-events: none;
+            }
+        }
+        // ユーザー名が２０文字を超えた時に付与するクラス
+        &.shinki_name_length_over{
+            .shinki_name_length_over_error{
+                display: block;
+            }
+            .shinki_show_form_area{
+                .user_label{
+                    color:#f84343;
+                }
+                .shinki_show_form{
+                    &.shinki_show_form_name{
+                        border:2px solid #f84343;
+                    }
+                }
+            }
+            .shinki_btn{
+                background: #e4e4e4;
+                color: #6d6c6c;
+                opacity: 0.8;
+                pointer-events: none;
+            }
+        }
+    }
+    .login_show_form,.shinki_show_form{
+        display: block;
+        margin: 0 auto;
+        padding: 0 1rem;
+        background-color: #efefef;
+        color: #444;
+        border-radius: 23px;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        // width: 75%;
+        width: 97%;
+        // max-width: 250px;
+        height: 50px;
+        border: 1px solid #a3b8bd;
+        outline: none;
+        // transition: all 0s;
+        &:focus{
+            border:2px solid #3879D9;
+            &::placeholder{
+                color: #3879D9;
+            }
+        }
+    }
+    .shinki_btn_margin{
+        margin-bottom: 2rem;
+    }
+}
+.no_login_user_link{
+    & > span{
+        color: #545454;
+        opacity: .8;
+    }
+}
+@media screen and(min-width:480px) {
+    .login_show{
+        .login_show_form_area{
+            .user_label,.password_label{
+                left: 9%;
+                &.active{
+                    left: 9%;
+                }
+            }
+        }
 
- 
+        .login_show_form{
+        width: 253px;
+        }
+    }
+}

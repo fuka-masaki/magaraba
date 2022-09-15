@@ -1,0 +1,50 @@
+<% set_meta_tags title: "人気漫画ランキング 漫画考察・ネタバレ・感想を投稿・共有するなら"  %>
+<% breadcrumb :popular_comic_ranking %>
+<div class="main-t"> 
+    <div class="container">
+        <article class="popular_mangas popular_comics_ranking_index">
+            <h1>
+                <i class="fa-solid fa-crown"></i>
+                <span>人気漫画ランキング</span>
+            </h1>
+            <ul class="popular_manga_ul"> <!--人気漫画上位3作品を表示-->
+                <% @comics.each.with_index(1) do |comic, i| %>
+                    <li class="popular_manga_li">
+                        <div class="ranking_label popular_comic_ranking"><%= i %></div>
+                        <div class="popular_manga neumorphism">
+                            <%= link_to "",comics_each_path(id: comic.id, ranking:"comics_popular_ranking", num: i), class:"popular_manga_post_link_cover" %>
+                            <div class="popular_manga_name_icon">
+                                <div class="popular_manga_name">
+                                <span><%= comic.name %></span>
+                                </div>
+                                <% popular_manga_posts = Post.includes(:user).where(id: @ids,parent_id: nil,Manga_name: comic.name).order([Arel.sql('field(id, ?)'), @ids]) %>
+                                <% if popular_manga_posts.count > 0 %>
+                                    <div class="popular_manga_more_post">
+                                        <div class="popular_manga_post_more_under_icon">
+                                            <i class="fa-solid fa-sort-down"></i>
+                                        </div>
+                                        <div class="">投稿をチラ見</div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="popular_manga_posts">
+                            <ul class="popular_manga_post_ul">
+                                <li>
+                                <% popular_manga_posts.slice(0..2).each do |popular_manga_post|%>
+                                    <section class="article_main  post_link popular_manga_post neumorphism">
+                                    <%= link_to "",post_show_path(id: popular_manga_post.id), class:"article_main_link_cover"  %>
+                                    <%= render 'posts/post', post: popular_manga_post %>
+                                    </section>
+                                <% end %> 
+                                </li>
+                            </ul>
+                            <%= link_to "もっと見る", comics_each_path(id: comic.id, ranking:"comics_popular_ranking", num: i), class: "comment_more_show"%>
+                        </div>
+                    </li>
+                <% end %>
+            </ul>
+        </article>
+        <%= paginate @comics %>
+    </div>
+</div>

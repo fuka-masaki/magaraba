@@ -1,0 +1,98 @@
+.top_super_new_tittle{  
+    position: relative;
+    margin-bottom: 1.4rem;
+    color: #484848;
+    
+    &::after{
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        content: '';
+        border-radius: 3px;
+        background-image: -webkit-gradient(linear, right top, left top, from(#58f139), to(#598d38));
+        background-image: -webkit-linear-gradient(right, #58f139 0%, #598d38 100%);
+        background-image: linear-gradient(90deg, #598d38, #58f139 72%);
+    }
+    & > i{
+        padding-right: 8px !important;
+        color: #199919;
+        background-image: linear-gradient(30deg, #5aad25, #58f139 72%);
+        -webkit-background-clip: text;//テキストでくり抜く
+        -webkit-text-fill-color: transparent;
+    }
+}
+.post_index_tab{
+    margin-bottom: 1.5rem;
+    padding-left: 0;
+    display: flex;
+    .post_index_tab_list_item{
+        position: relative;
+        color: #7e7c7c;
+        background: #dadada;
+        width: calc(100% / 3);
+        list-style: none;
+        padding:10px 10px;
+        text-align: center;
+        // border-bottom:1px solid #8f99dd;
+        cursor: pointer;
+        transition: all .3s;
+        & > h4{
+            margin:0;
+            font-weight: normal;
+        }
+        &::after{
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            content: '';
+            border-radius: 3px;
+            background-color: #c2c2c2;
+        }
+        &.here_tab{
+            width :45%;
+            background-color: #ffffff;
+            color: #199919;
+            border-radius: 3px 3px 0 0;
+            &::after{
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                content: '';
+                border-radius: 3px;
+                background-color: #199919;
+                background-image: linear-gradient(30deg, #5aad25, #58f139 72%);
+            }
+            & > h4{
+                font-size: 1.15rem;
+                font-weight: bold;
+            }
+        }
+    }
+}
+// 自分の投稿のいいね順、閲覧順、新着順のSCSS
+.tab_post_index_content{
+    display:none;
+    &.here_content{
+        display:block;
+        animation-name: fadedowncontent;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes fadedowncontent{
+    from {
+        opacity: 0;
+        transform: translateY(-1rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+}
+}

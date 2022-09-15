@@ -20,13 +20,10 @@ class ApplicationController < ActionController::Base
         end
     end
 
-    def ransack
-        @q = Post.ransack(params[:q]) 
-        @new_posts = @q.result(distinct: true).recent
+    def cheack_current_user
+        @post = Post.find_by(id: params[:id])
+        if @current_user.id !=  @post.user_id
+            redirect_to("/home/top")
+        end
     end
-
-    
-
-
-
 end

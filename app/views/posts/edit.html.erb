@@ -1,26 +1,65 @@
-<% content_for :css do %>
-<%= stylesheet_link_tag 'users' %>
-<% end %>
+<% breadcrumb :post_edit, @post %>
 <div class="main-t"> 
-  <main>
-    <div class="container2">
-      <div class="user-form">
-        <h1 class="form-title">投稿の編集</h1>
+    <div class="edit">
+      <h1 class="edit-title"><i class="fa-solid fa-pen"></i>投稿の編集</h1>
         <%= form_tag("/posts/#{@post.id}/update") do %>
-          <div class="form">
-            <div class="form-body">
-              <% @post.errors.full_messages.each do |message| %>
-                <div class="form-error">
-                  <%= message %>
+        <section class="article_show">
+            <div class="article_main  post_no_link neumorphism">
+                <div class="user_info">
+                        <div class="user_icon">
+                            <img src="<%= "/user_images/#{@post.user.image_name}" %>" class="user_icon_image" >
+                        </div>
+                    <div class="user_name_date">                    
+                            <div class="user_name">
+                                <%= @post.user.name %>
+                            </div>
+                        <div class="user_date">
+                            <%= time_ago_in_words(@post.created_at) %>前
+                        </div>
+                    </div>         
                 </div>
-              <% end %>               
-              <textarea name="content"><%= @post.content %></textarea>
-              <br></br>
-              <div class="user-submit"><input type="submit" value="保存"></div>
-              </div>
-          </div>
-        <% end %>
-      </div> 
-    </div> 
-  </main>                    
+                <!-- <hr class="article_main_line1"> -->
+                <% if Post.find_by(id:@post.reply_id).present? %>
+                  <div class="article_main_comment_replay_edit">
+                    @<%= Post.find(@post.reply_id).user.name %>
+                  </div>
+                <% else %>
+                  <div class="post_Manga_name_edit">
+                    <%= @post.Manga_name %>
+                  </div>      
+                <% end %>
+                <div class="article_main_tittle_contain">
+                  <% @post.errors.full_messages.each do |message| %>
+                    <div class="form-error">
+                      <%= message %>
+                    </div>
+                  <% end %>
+                  <% if @post.Title.present? %>
+                    <div class="new_post_tittle_area_edit">
+                      <label class="new_post_tittle_label_edit">タイトル</label>
+                      <textarea name="Title" class="article_main_tittle edit_form edit_tittle_textarea"><%= @post.Title %></textarea>
+                    </div>
+                  <% end %>
+                  <div class="new_post_content_area_edit">
+                    <label class="new_post_content_label_edit">内容</label>
+                    <textarea name="content" class="article_main_contain edit_form edit_content_textarea"><%= @post.content %></textarea>
+                  </div>
+                </div>
+                <hr class="article_main_line">
+                <div class="article_main_comment_icons_nums">
+                    <div class="article_main_comment_icon_num_heart">
+                        <div class="likes_buttons_<%= @post.id %>" style="pointer-events: none;">
+                            <%= render 'likes/like',post: @post, current_user: @current_user %>
+                        </div>
+                    </div>
+                    <div class="article_main_comment_replay_icon_num">
+                        <div class="article_main_comment_replay_icon"><i class="fa-regular fa-comment"></i></div>
+                        <div class="article_main_comment_replay_num"><%= Post.where(parent_id: @post.id).count %></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <input type="submit" value="保存"class="edit_submit textareas_in_text">
+      <% end %> 
+    </div>         
 </div>

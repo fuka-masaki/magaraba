@@ -1,0 +1,15 @@
+"pkg-config --exists libffi"
+| pkg-config --libs libffi
+=> "-lffi\n"
+"clang -fdeclspec -o conftest -I/Users/fukayamasaki/.rbenv/versions/3.0.2/include/ruby-3.0.0/x86_64-darwin20 -I/Users/fukayamasaki/.rbenv/versions/3.0.2/include/ruby-3.0.0/ruby/backward -I/Users/fukayamasaki/.rbenv/versions/3.0.2/include/ruby-3.0.0 -I. -I/Users/fukayamasaki/.rbenv/versions/3.0.2/include  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wdivision-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wextra-tokens  -fno-common -pipe conftest.c  -L. -L/Users/fukayamasaki/.rbenv/versions/3.0.2/lib -L. -L/Users/fukayamasaki/.rbenv/versions/3.0.2/lib  -fstack-protector-strong -L/usr/local/lib     -lruby.3.0   "
+xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+

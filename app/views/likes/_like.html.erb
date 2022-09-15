@@ -1,0 +1,26 @@
+<% if @current_user == nil %>    
+    <%= link_to "#",class: "article_main_comment_icon_heart_not jquery-disabled", tabindex: "-1" do %>
+        <div class="no_login_heart_icon_num">
+            <div class="article_main_comment_icon_heart no_login_heart">
+                <i class="fa-regular fa-heart icon"></i>
+            </div>
+            <div class="article_main_comment_num_heart_not"><%= Like.where(post_id: post.id).count %></div>
+        </div>
+    <% end %>
+<% else %>
+    <% if Like.find_by(user_id: current_user.try(:id), post_id: post.id) %>
+        <%= link_to "/likes/#{post.id}/destroy",class:"article_main_comment_icon_heart_full", method: :post, remote: true do %>
+            <div class="article_main_comment_icon_heart">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="article_main_comment_num_heart_full"><%= Like.where(post_id: post.id).count %></div>
+        <% end%>
+    <% else %>
+        <%= link_to "/likes/#{post.id}/create",class: "article_main_comment_icon_heart_not", method: :post, remote: true do %>
+            <div class="article_main_comment_icon_heart">
+                <i class="fa-regular fa-heart icon"></i>
+            </div>
+            <div class="article_main_comment_num_heart_not"><%= Like.where(post_id: post.id).count %></div>
+        <% end %>
+    <% end %>
+<% end %>

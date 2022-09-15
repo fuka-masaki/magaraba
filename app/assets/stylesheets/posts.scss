@@ -4,228 +4,685 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-
-//all
-*{
-    margin:0;
-    padding:0;
+$fontblack :#545454;
+.display_block{
+    display: block;
 }
-.form-error{
-color:red;
-   }
-//edit
-*{
-    margin:0;
-    padding:0;
-   }
-   .form-heading{
-       text-align:center;
-   }
-   .form-body{
-       text-align:center;
-   }
-//new_comic
-*{
-    margin:0;
-    padding:0;
-  }
-  .new-text{
-      text-align:center;
-      margin-bottom:20px;
-     
-  }
-  .new-submit{
-      margin-top:10px;
-      text-align:center; 
-  }
-  input[type="submit"]{
-      text-align:center;
-      width:40%;
-      
-  }
 
-  //top.scssペースト（一部改変）
-  *{
+#container {
+    position: relative;
+    background: #efefef;
+    // height: 100%;
+    z-index: 1;
+    transition: all 0.5s;
+}
+body {
     margin:0;
-    padding:0;
-   }
-   header{
-    background-color:rgba(253, 174, 83, 0.8);
-    height: 80px;
-   
-   }
-   .main-t{
-    height:3000px;
-    width:100%;
-   }
-   .header-logo-t{
-       
-        float:left;
-        font-size:35px;
-        padding-top:10px;
-        padding-left:20px;
-   }
-   .header-menu-t a{
-       float:right;
-       line-height:65px;
-       margin:0 30px;
-       
-   }
-    //top-container削除　
-.comics{
-       width:150px;
-       height:500px;
-       overflow-y:scroll;
-       overflow-x:hidden;
-       border:solid 2px black;
-
-   }
-   .comic{
-       font-size:12px;
-   }
-   .ichiran{
-       margin-left:200px;
-       float:left;
-      
-   }
-   .top-center{                                           //top-centerに改名
-float:left;
-width:50%;
-   }
-   .search{
-       float:left;
-       padding:10px;
-       border-top:solid 2px black;
-       border-bottom:solid 2px black;
-       border-right:solid 1px black;
-       border-left:solid 2px black;
-       background-color:rgba(253, 174, 83, 0.2) ;
-       display:flex;
-       height:24px;
-   }
-   .popular{
-       float:left;
-       padding:10px;
-       border-top:solid 2px black;
-       border-bottom:solid 2px black;
-       border-right:solid 1px black;
-       border-left:solid 1px black;
-       background-color:  rgba(253, 174, 83, 0.2);
-   }
-   .super-new{
-       float:left;
-       padding:10px;
-       border-top:solid 2px black;
-       border-bottom:solid 2px black;
-       border-right:solid 1px black;
-       border-left:solid 1px black;
-       background-color: rgba(253, 174, 83, 0.2);
-   }
-   .favorite{
-       float:left;
-       padding:10px;
-       border-top:solid 2px black;
-       border-bottom:solid 2px black;
-       border-right:solid 1px black;
-       border-left:solid 1px black;
-       background-color: rgba(253, 174, 83, 0.2);
-   }
-   .my-post{
-       float:left;
-       padding:10px;
-       border-top:solid 2px black;
-       border-bottom:solid 2px black;
-       border-right:solid 2px black;
-       border-left:solid 1px black;
-       background-color: rgba(253, 174, 83, 0.2);
-   }
-  li{
-      float:left;
-      list-style:none;
-      display:flex;
-  }
-  a{
-      text-decoration: none;
-      color:black;
-      font-weight:bold;
-      font-family:arial;
-  }
-  a:hover{
-      text-decoration: underline;
-  }
-  input[type="submit"]{
-    background-color:wheat ;
-    text-align: center;
-    height:20px;
-    width:50px;
-  }
-
-  //hirotaka2021/11/22
-  .top{
-    font-size:5px;
-  }
-  .container{
-      margin:20px;
-      clear:left;
-  }
-  
-  
-/* ↓ONE_PIECE.CSS */
-*{
-    margin:0;
-    padding:0;
-   }
-   header{
-    background-color:rgba(253, 174, 83, 0.8);
-    height: 80px;
-   
-   }
-   .main-t{
-    height:3000px;
-    width:100%;
-   }
-   .header-logo-t{
-       
-    float:left;
-    font-size:35px;
-    padding-top:10px;
-    padding-left:20px;
-   }
-   .header-menu-t a{
-    float:right;
-    line-height:65px;
-    margin:0 30px;
-       
-   }
-   .top{
-    padding:20px;
-   }
-   .new-post{
-    background-color:  rgba(253, 174, 83, 0.7);
-    border:solid 2px black;
-    margin-right:630px;
-    
-   }
-   .new-post:hover{
-    opacity:1;
+    background: #efefef;
+    // height: 3000px;
+}
+.neumorphism{
+    border: none;
+    outline: none;
+    background: #efefef;
+    color: $fontblack;
+    box-shadow: -6px -6px 14px rgba(255, 255, 255, .7),
+    -6px -6px 10px rgba(255, 255, 255, .5),
+    6px 6px 8px rgba(173, 108, 108, 0.075),
+    6px 6px 10px rgba(0, 0, 0, .15);
+}
+.ichiran{
+    display:none;
+}
+.posts-show-item{
+    display:none;
+    width:90%;
+    margin: 0 auto;
+    border-radius: .5rem;
+    padding: .6rem;
+    margin-bottom: 1rem;
+}
+.container{
+    width: 93%;
+    margin: 0 auto;
+}
+// 新規フォーラム開いた時の後ろの黒いカバー
+.new_post_form_cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    // transform: translateY(100%);
     cursor: pointer;
-   }
- 
-  .post{
-        padding: 20px 30px;
-        background-color: white;
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+}
+ // 新規投稿ボタンが押された時
+.new_post_form_open{
+    .new_post_form_cover{
+        opacity: 1;
+        visibility: visible;
+        // transform: none;
+    }
+    .new_post_form_area{
+        transform: none !important;
+    }
+}
+main{
+    margin: 0 auto;
+    max-width: 1375px;
+    display:flex;
+    .main-t_cover{    
+        flex:6;
+        position: relative;
         overflow: hidden;
-        box-shadow: 0 2px 6px #c1ced7;
-  }
-  .user-submit{
-     text-align:center;
-     width:80%;
-     margin:0 auto;
-  }
-  input[type="submit"]{
-    background-color:wheat ;
+        padding-top: 75px;
+        .main-t{
+            padding-bottom: 5rem;
+            min-height: 100vh;
+        }
+        .new_post_form_icon{
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            // 変更
+            bottom: 15px;
+            right: 10px;
+            // 変更終わり
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #00a1ba;
+            background-image: linear-gradient(90deg, rgba(87, 171, 246, 1), rgba(14, 244, 255, 1));
+            z-index: 3;
+            cursor: pointer;
+            & >i{
+                color: #efefef;
+            }
+            & > span{
+                color: #efefef;
+                margin-left: 6px;
+                display: none;
+            }
+            @media screen and(min-width: 981px){
+                right: 0%;
+                font-size: 1.2rem;
+                padding: 10px 48px;
+                width: fit-content;
+                height: fit-content;
+                border-radius: 33px;
+                & > span{
+                    display:inline;
+                }
+            }
+            @media screen and(min-width: 1400px){
+                bottom:15px;
+                right: 4%;
+            }
+
+        }
+        // 新規投稿フォームの設定
+        // 新規フォーラムの中身
+        .new_post_form_area{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top:40px;
+            left: 0;
+            border-radius: 21px 21px 0 0;
+            background-color: #f4f5f7;
+            z-index: 500;
+            transform: translateY(100%);
+            transition: all .3s;
+            // 新規投稿ページのバツボタン
+            .new_post_form_x_btn{
+                text-align: right;
+                padding-right: 16px;
+                padding-top: 6px;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            //新規投稿ページの内容
+            .new_post_form_content{
+                width: 90%;
+                margin: 0 auto;
+                & > h1{
+                    color: $fontblack;
+                    margin-bottom: 3.5rem;
+                    margin-top: 2.2rem;
+                    & > i{
+                        padding-right: 5px;
+                        color: #00a1ba;
+                    }
+                }
+                & > hr{
+                    display: none;
+                    height: 1px;
+                    background-color: #00a1ba;
+                    margin-bottom: 3.5rem;
+                    border: none;
+                }
+                .comic_name_select_tag_area{
+                    position: relative;
+                    margin-left: 1rem;
+                    margin-bottom: 1.7rem;
+                    
+                    .new_post_comic_name_label{
+                        font-size: 1.1rem;
+                        position: absolute;
+                        left: 11px;
+                        top: -26px;
+                        color: #545454bd;
+                    }
+                }
+                
+                // .new_post_form_user_iocn_name{
+                //     display: flex;
+                //     .new_post_form_user_iocn{
+                //         & > img{
+                //             width: 2rem;
+                //             height: 2rem;
+                //             border-radius:50%;
+                //         }
+                        
+                //     }
+                //     .new_post_form_user_name{
+
+                //     }
+                // }
+                // 新規投稿ページのタイトル入力欄
+                .new_post_tittle_area{
+                    position: relative;
+                    margin-left: 1rem;
+                    margin-bottom: 1rem;
+                    // タイトル入力欄のラベル
+                    .new_post_tittle_label{
+                        position: absolute;
+                        left: 14px;
+                        top: 8px;
+                        padding: 0 2px;
+                        background-color: #f4f5f7;
+                        color: #545454;
+                        opacity: .8;
+                        pointer-events: none;
+                        -webkit-transition: top .2s ease-in-out, 
+                                            font-size .2s ease-in-out;
+                        transition: top .2s ease-in-out, 
+                                    font-size .2s ease-in-out;
+                        
+                        &.active{
+                            left: 14px;
+                            top: -14px;
+                            padding: 0 2px;
+                            font-size: .9rem;
+                            color:#00a1ba;
+                            opacity: 1;
+                        }
+                    }
+                    //タイトルのテキストエリア
+                    .new_post_tittle_textarea{
+                        overflow:hidden;
+                        padding: 8px 14px;
+                        line-height: 20px;
+                        width: 100%;
+                        resize: none;
+                        outline: none;
+                        border: none;
+                        background-color: #f4f5f7;
+                        border: 1px solid #cccccc;
+                        border-radius: 23px;
+                        // border-radius: 5px;
+                        transition: all .3s;
+                        &:focus{
+                            border:1px solid #00a1ba;
+                        }
+                    }
+                }
+                // 新規投稿ページの内容入力エリア
+                .new_post_content_area{
+                    margin-left: 1rem;
+                    margin-bottom: 2rem;
+                    position: relative;
+                    // 内容入力エリアのラベル
+                    .new_post_content_label{
+                        position: absolute;
+                        left: 7px;
+                        top: 3px;
+                        padding: 0 2px;
+                        background-color: #f4f5f7;
+                        color: #545454;
+                        opacity: .8;
+                        pointer-events: none;
+                        -webkit-transition: top .2s ease-in-out, 
+                                            font-size .2s ease-in-out;
+                        transition: top .2s ease-in-out, 
+                                    font-size .2s ease-in-out;
+                        &.active{
+                            left: 8px;
+                            top: -13px;
+                            padding: 0 2px;
+                            font-size: .9rem;
+                            color:#00a1ba;
+                            opacity: 1;
+                        }
+                    }
+                    // 内容入力エリアのテキストエリア
+                    .new_post_content_textarea{
+                        overflow:hidden;
+                        padding: 8px;
+                        line-height: 20px;
+                        border-radius: 6px;
+                        width: 100%;
+                        resize: none;
+                        outline: none;
+                        border: none;
+                        background-color: #f4f5f7;
+                        border: 1px solid #cccccc;
+                        transition: all .3s;
+                        &:focus{
+                            border:1px solid #00a1ba;
+                        }
+                    }
+                }
+                .new_post_submit{
+                    display: flex;
+                    .new_post_submit_margin{
+                        flex: 3;
+                    }
+                    .new_post_submit_btn_area{
+                        flex: 2;
+                        .new_post_submit_btn{
+                            display:block;
+                            width: 100%;
+                            outline: none;
+                            border: none;
+                            padding: .7rem 0;
+                            border-radius: 23px;
+                            background: #e4e4e4;
+                            color: #6d6c6c;
+                            opacity: .8;
+                            transition: all .3s;
+                            pointer-events: none;
+                        }
+                    }
+                }
+                &.textareas_in_text{
+                    .new_post_submit_btn{
+                        pointer-events: auto !important;
+                        color: #f4f5f7 !important;
+                        background-color: #00a1ba !important;
+                        background-image: linear-gradient(90deg, rgba(87, 171, 246, 1), rgba(14, 244, 255, 1)) !important;
+                        &:hover{
+                            opacity: .8;
+                        }
+                    }
+                }
+            }  
+        }
+        @media screen and(min-width:981px) {
+
+            .new_post_form_area{
+                width: 60%;
+                inset: 0;
+                margin:auto;
+                top: 138px;
+                border-radius: 21px 21px 0 0;
+                .new_post_form_x_btn{
+                    padding-right: 19px;
+                    padding-top: 10px;
+                }
+            }
+        }
+    }
+    #aside_left{
+        border-right: 1px solid #e1e1e1;
+        & > ul{     
+            list-style-type: none;
+            margin-top: 5rem;
+            padding-left: 0;
+            & > li{
+                .aside_menu_right_icon{
+                    margin-right: 1rem;
+                }
+                & > a{
+                    padding: 1rem 0 1rem 1rem;
+                    color: $fontblack;
+                    font-size: 1.3rem;
+                    display:flex;
+                    & > div{
+                        &:last-child{
+                            margin-left: auto;
+                        }
+                        .aside_menu_icon{
+                            padding-right: .5rem;
+                        }
+                        
+                    }
+                }
+                &:hover{
+                    background-color: #5454542e;
+                    & > a{
+                        text-decoration: none;
+                    }
+                }
+                
+            }
+        }
+    }
+    #aside_right{
+        border-left: 1px solid #e1e1e1;
+    }
+    @media screen and (max-width:980px){
+        aside{
+            display:none;
+        }
+    }
+    @media screen and (min-width:981px){
+        aside{
+            flex:2;
+            // background-color: #efefef;
+        }
+    }
+
+}
+
+// 投稿一覧のSCSS
+.container{
+    & > h1{
+        margin-bottom: 2rem;
+        & > i{
+            padding-right: .6rem;
+        }
+    }
+}
+.article_index{
+    padding-left: 0;
+    & > li{
+        list-style: none;
+        margin-bottom: 1.3rem;
+    }
+}
+// ページネーションのデザイン
+.pagination{
     text-align: center;
-    height:40px;
-    width:40%;
-    margin-bottom:20px;
-  }
+    .page{
+        padding:.4rem;
+        &.gap{
+            color:#007bff;
+        }
+    }
+}
+ // ログインしてない時にいいねボタンを押した時表示されるデザイン
+.no_login_heart_show{
+    transform: translateY(100vh);
+    visibility: hidden;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: 80%;
+    max-width: 620px;
+    height: fit-content;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
+    // border-radius: 0.4rem;
+    padding-bottom:4rem;
+    text-align: center;
+    border-radius: 1rem;
+    z-index: 500;
+    transition: all .3s;
+    background: white;
+    background-color: #efeeee;
+    & > span{
+        color: #505050;
+        font-size: 1.4rem;
+        font-weight: 600;
+        display:block;
+        &:nth-child(3){
+            margin-top:1.5rem;
+        }
+        &:nth-child(4){
+            margin: .6rem 0;
+            color: #d41a1a;
+        }
+        &:nth-child(5){
+            margin-bottom: 1.3rem;
+        }
+    }
+    
+    a{
+        font-size: 1.1rem;
+        margin-bottom: .7rem;
+        display:block;
+        border-radius: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 190px;
+        padding: 1rem 1rem;
+        transition: all .3s;
+        color: #fff;
+        background-color: #bf2726;
+        &:hover{
+            background: #f72625;
+            text-decoration: none;
+        }
+    }
+    .no_login_heart_x_btn{
+        text-align: right;
+        & > i{
+            font-size: 1.8rem;
+            padding: 1rem 1.3rem 2rem 0;
+        }
+    }
+}
+//ログインしていない時にいいねボタンが押されたときの黒色の背景
+.no_login_heart_cover{
+    position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        // transition: opacity 1s;
+        cursor: pointer;
+        z-index: 400;
+}
+//ログインしていないときにいいねをボタンを押された時に表示されるものにクラス付与して見えるようにする
+.no_login_heart_open{
+    .no_login_heart_show{
+        visibility: visible;
+        transform: none;
+    }
+    .no_login_heart_cover{
+        opacity: 1;
+        visibility: visible;
+    }
+}
+ // ログインしてない時に投稿ボタンを押した時表示されるデザイン
+.no_login_new_post_form_show{
+    transform: translateY(100vh);
+    visibility: hidden;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: 80%;
+    max-width: 620px;
+    height: fit-content;
+    background-color: #efeeee;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
+    // border-radius: 0.4rem;
+    padding-bottom:4rem;
+    text-align: center;
+    background: white;
+    border-radius: 1rem;
+    z-index: 500;
+    transition: all .3s;
+    & > span{
+        color: #505050;
+        font-size: 1.4rem;
+        font-weight: 600;
+        display:block;
+        &:nth-child(3){
+            margin-top:1.5rem;
+        }
+        &:nth-child(4){
+            margin: .6rem 0;
+            color: #19aec5;
+        }
+        &:nth-child(5){
+            margin-bottom: 1.3rem;
+        }
+    }
+    
+    a{
+        color: #fff;
+        font-size: 1.1rem;
+        margin-bottom: .7rem;
+        display:block;
+        border-radius: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 190px;
+        background-color: #0aa9c2;
+        padding: 1rem 1rem;
+        transition: all .3s;
+        &:hover{
+            color: #fff;
+            background: #45d5ec;
+            text-decoration: none;
+        }
+    }
+    .no_login_new_post_form_x_btn{
+        text-align: right;
+        & > i{
+            font-size: 1.8rem;
+            padding: 1rem 1.3rem 2rem 0;
+        }
+    }
+}
+//ログインしていない時に投稿ボタンが押されたときの黒色の背景
+.no_login_new_post_form_cover{
+    position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        // transition: opacity 1s;
+        cursor: pointer;
+        z-index: 400;
+}
+//ログインしていないときに投稿ボタンを押された時に表示されるものにクラス付与して見えるようにする
+.no_login_new_post_form_open{
+    .no_login_new_post_form_show{
+        visibility: visible;
+        transform: none;
+    }
+    .no_login_new_post_form_cover{
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.other_user_name{
+    margin: 0 auto;
+    margin-bottom: 8px;
+    width: fit-content;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+ // ログインしてない時にコメントテキストエリアを押した時表示されるデザイン
+.no_login_content_textarea_show{
+    transform: translateY(100vh);
+    visibility: hidden;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: 80%;
+    max-width: 620px;
+    height: fit-content;
+    background-color: #efeeee;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
+    // border-radius: 0.4rem;
+    padding-bottom:4rem;
+    text-align: center;
+    background: white;
+    border-radius: 1rem;
+    z-index: 500;
+    transition: all .3s;
+    & > span{
+        color: #505050;
+        font-size: 1.4rem;
+        font-weight: 600;
+        display:block;
+        &:nth-child(3){
+            margin-top:1.5rem;
+        }
+        &:nth-child(4){
+            margin: .6rem 0;
+            color: #ff8f32;
+        }
+        &:nth-child(5){
+            margin-bottom: 1.3rem;
+        }
+    }
+    
+    a{
+        color: #fff;
+        font-size: 1.1rem;
+        margin-bottom: .7rem;
+        display:block;
+        border-radius: 2rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 190px;
+        background-color: #ff8d30;
+        padding: 1rem 1rem;
+        transition: all .3s;
+        &:hover{
+            color: #fff;
+            background: #ffa459;
+            text-decoration: none;
+        }
+    }
+    .no_login_content_textarea_x_btn{
+        text-align: right;
+        & > i{
+            font-size: 1.8rem;
+            padding: 1rem 1.3rem 2rem 0;
+        }
+    }
+}
+//ログインしていない時に投稿ボタンが押されたときの黒色の背景
+.no_login_content_textarea_cover{
+    position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        // transition: opacity 1s;
+        cursor: pointer;
+        z-index: 400;
+}
+//ログインしていないときに投稿ボタンを押された時に表示されるものにクラス付与して見えるようにする
+.no_login_content_textarea_open{
+    .no_login_content_textarea_show{
+        visibility: visible;
+        transform: none;
+    }
+    .no_login_content_textarea_cover{
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+

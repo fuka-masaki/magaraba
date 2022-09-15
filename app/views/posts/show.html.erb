@@ -1,96 +1,230 @@
-<% content_for :css do %>
-<%= stylesheet_link_tag 'posts' %>
-<% end %><div class="main-t"> 
-    <div class="ichiran">
-            <div class="ichiran-title">漫画一覧</div>
-            <div class="comics">
-                <div class="comic">
-                    <%= link_to("ONE PIECE",comics_each_path(id:1))%>
+<% set_meta_tags title: @post.Title , description: @post.content,og:{image: image_url("/images/ogp/#{@ogp_manga_name}/#{@ogp_title}")} %> 
+<% breadcrumb :post_show, @post %>
+<div class="main-t"> 
+    <div class="container">
+        <section class="article_show">
+            <div class="<%=@ranking_label%> "><%= @ranking_tittle %><%= @ranking_id %>位</div>
+            <div class="article_main  post_no_link neumorphism">
+                <div class="user_info">
+                    <%= link_to "/home/user_post/#{@post.user.id}" do %>
+                        <div class="user_icon">
+                            <img src="<%= "/user_images/#{@post.user.image_name}" %>" class="user_icon_image" >
+                        </div>
+                    <% end %>
+                    <div class="user_name_date">
+                        <%= link_to "/home/user_post/#{@post.user.id}" do %>
+                            <div class="user_name <%= if @post.user.name.length >= 28 
+                                                    "over_28"
+                                                elsif @post.user.name.length >= 15
+                                                    "over_15"
+                                                elsif @post.user.name.length >= 12
+                                                    "over_12"
+                                                else
+                                                end %>">
+                                <%= @post.user.name %>
+                            </div>
+                        <% end %>
+                        <div class="user_date">
+                            <%= time_ago_in_words(@post.created_at) %>前
+                        </div>
+                    </div>
+                    <div class="user_menu_show_icon">
+                        <div class="user_menu">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                        <div class="user_menu_show">
+                            <% if @user.id == @current_user.try(:id) %>
+                                <%= link_to "/posts/#{@post.id}/edit",class:"post_show_edit" do %>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    編集
+                                <% end %>
+                                <%= link_to "/posts/#{@post.id}/destroy",class:"post_show_destroy", method: :post,data: {confirm: "削除しますか？"} do %>
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    削除
+                                <% end %>
+                                <a href="#" class="user_menu_cancel"><i class="fa-solid fa-xmark"></i>キャンセル</a>
+                            <% else %>
+                                <%= link_to "/posts/report/#{@post.id}",class:"post_show_report", method: :post do %>
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    通報                                
+                                <% end %>
+                                <a href="#" class="user_menu_cancel"><i class="fa-solid fa-xmark"></i>キャンセル</a>
+                            <% end %>
+                        </div>                           
+                    </div>             
                 </div>
-                <div class="comic">                   
-                    <%= link_to("HUNTER×HUNTER",comics_each_path(id:2))%>
+                <!-- <hr class="article_main_line1"> -->
+                <%= link_to "#{@post.Manga_name}",comics_each_path(id: Comic.where(name: @post.Manga_name).pluck(:id)) ,class:"article_main_comic_name" %>
+                <div class="article_main_tittle_contain">
+                    <h1 class="article_main_tittle"><%= @post.Title %></h1>
+                    <div class="article_main_contain"><%=safe_join(@post.content.split("\n"),tag(:br)) %></div>
                 </div>
-                <div class="comic">                 
-                    <%= link_to("東京卍リベンジャーズ",comics_each_path(id:3))%>
+                <hr class="article_main_line">
+                <div class="article_main_comment_icons_nums">
+                    <div class="article_main_comment_icon_num_heart">
+                        <div class="likes_buttons_<%= @post.id %>">
+                            <%= render 'likes/like',post: @post, current_user: @current_user %>
+                        </div>
+                    </div>
+                    <div class="article_main_comment_replay_icon_num">
+                        <div class="article_main_comment_replay_icon"><i class="fa-regular fa-comment"></i></div>
+                        <div class="article_main_comment_replay_num"><%= Post.where(parent_id: @post.id).count %></div>
+                    </div>
                 </div>
-                <div class="comic">                 
-                    <%= link_to("呪術廻戦",comics_each_path(id:4))%>
-                </div>                           
-                <div class="comic">                    
-                    <%= link_to("怪獣8号",comics_each_path(id:5))%>
-                </div>
-                <div class="comic">                  
-                    <%= link_to("キングダム",comics_each_path(id:6))%>
-                </div>
-                <div class="comic">                  
-                    <%= link_to("名探偵コナン",comics_each_path(id:7))%>
-                </div>
-                <div class="comic">                  
-                    <%= link_to("僕のヒーローアカデミア",comics_each_path(id:8))%>
-                </div>           
-                <div class="comic">                   
-                    <%= link_to("ワンパンマン",comics_each_path(id:9))%>
-                </div>
-                <div class="comic">                         
-                    <%= link_to("ワールドトリガー",comics_each_path(id:10))%>
-                </div>   
-                <div class="comic">                 
-                    <%= link_to("ブラッククローバー",comics_each_path(id:11))%>
-                </div>      
-                <div class="comic">                               
-                    <%= link_to("推しの子",comics_each_path(id:12))%>
-            </div>       
-        </div class="comics">
-        </div class="ichiran">
-    <div class="top-center">
-        <div class="top-kind">
-            <div class="search">
-                <li><i class="fas fa-search"></i></li>
-                <%= search_form_for @q , url: home_search_path do |f| %>
-                    <%= f.label :Manga_name_cont, '漫画名' %>
-                    <%= f.search_field :Manga_name_cont %>
-                    <br>
-                    <%= f.submit '検索' %>
+            </div>
+            <div class="main_replay">
+                <%= form_tag("/posts/comment_create/#{@post.id}",class:"comment_form") do %>
+                    <div class="content_textarea_cover">
+                        <textarea name="content" class="content_textarea <%= 'no_login_content_textarea' if @current_user == nil %>" id="comment_content_form" rows="1" placeholder="この投稿にコメントする"></textarea>
+                    </div>
+                    <div class="main_send_cover">
+                        <input type="submit" value="コメント" class="main_send"></input> 
+                    </div>
                 <% end %>
-            </div class="search">
-            <div class="popular">
-                <%= link_to("人気","/home/top")%>
-            </div class="popular">
-            <div class="super-new">
-                <%= link_to("最新","/home/top_super_new")%>
-            </div class="super-new">
-            <div class="favorite">
-                <%= link_to("お気に入り","/users/:id/top_favorite")%>
-            </div class="favorite">
-            <div class="my-post">
-                <%= link_to("自分の投稿","/home/top_my_post")%>
-            </div class="my-post">    
-        </div class="top-kind">       
-
-        <div class="container">
-            <div class="posts-show-item">
-            <p>
-            <%= @post.content %>
-            </p>          
-            <div class="post-menus">
-            <%= link_to("編集", "/posts/#{@post.id}/edit") %>
-            <%= link_to("削除", "/posts/#{@post.id}/destroy", {method: "post"}) %>
-            <%= link_to("コメントする", "/posts/#{@post.id}/comment")%> 
-            <% if Like.find_by(user_id: @current_user.id, post_id: @post.id) %>
-            <%= link_to("普通のボタン","/likes/#{@post.id}/destroy",{method: "post"}) %>
+            </div>
+            <div class="show_comments">
+            <% if @new_post_comments.present? %>
+                <div class="comments_titles">
+                    <div class="comments_title">
+                        <i class="fa-regular fa-comment"></i>
+                        <h2>コメント</h2>
+                    </div>
+                    <div class="comments_sort">
+                        <div class="comments_sort_icon">
+                            <i class="fa-solid fa-align-right"></i>
+                        </div>
+                        <div class="commets_select">
+                            <%= button_to '新しい順', {controller: 'posts', action: 'show'}, {method: :get,params: {comment_change: 'new'},class: "sort_button new_sort"}  %>
+                            <%= button_to 'いいね順', {controller: 'posts', action: 'show'}, {method: :get,params: {comment_change: 'like'},class: "sort_button like_sort"} %>
+                        </div>
+                    </div>
+                </div>
+                <div class="show_comments_tab_content ">
+                    <% @post_comments.each do |post_comment| %>
+                        <div class="article_comment_show">
+                            <div class="article_comment_area">
+                                <%= render  'posts/comment', post: post_comment %>
+                                <div class="main_replay child_comment_area">
+                                    <%= form_tag("/posts/child_create/#{post_comment.id}") do %>  
+                                        <div class="content_textarea_cover">
+                                            <textarea name="content" class="content_textarea <%= 'no_login_content_textarea' if @current_user == nil %>" id="comment_content_form" rows="1" placeholder="この投稿にコメントする"></textarea>
+                                        </div>
+                                        <div class="main_send_cover">
+                                            <input type="submit" value="コメント" class="main_send"></input> 
+                                        </div>
+                                    <% end %> 
+                                </div>
+                            </div>
+                            <div class="article_comments_mago">
+                                <%if Post.where(parent_id: post_comment.id).count > 0 %>
+                                    <div class="aritcle_comment_mago_show_btn"><i class="fa-solid fa-angle-down"></i><span><%= Post.where(parent_id: post_comment.id).count %></span>件のコメントを表示</div>
+                                <% end %>
+                                <ul class="article_comment_mago">
+                                    <% l = Post.where(parent_id: post_comment.id) %>
+                                    <% l.each do |post| %>
+                                        <li class="article_comment_mago_list">
+                                            <div class="article_comment_area">     
+                                                <%= render 'posts/comment', post: post %>
+                                                <div class="grand_post main_replay">
+                                                    <%= form_tag("/posts/grand_create/#{post.id}") do %>  
+                                                        <div class="textarea_btn" id="textarea_btn_mago">
+                                                            <div class="content_textarea_cover">
+                                                                <textarea name="content" class="content_textarea <%= 'no_login_content_textarea' if @current_user == nil %>" id="comment_content_form" rows="1" placeholder="この投稿にコメントする"></textarea>
+                                                            </div>
+                                                            <div class="main_send_cover">
+                                                                <input type="submit" value="コメント" class="main_send"></input> 
+                                                            </div>
+                                                        </div>
+                                                    <% end %> 
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <% end %>
+                                </ul>
+                                <div class="article_comment_mago_close_btn"><i class="fa-solid fa-xmark"></i>閉じる</div>
+                            </div>
+                        </div>
+                    <% end %> 
+                </div>
             <% else %>
-            <%= link_to("お気に入りボタン","/likes/#{@post.id}/create",{method: "post"}) %>
+                <div class="show_comments_not">
+                    コメントがありません
+                </div>
             <% end %>
-
-            <%= @likes_count%> 
             </div>
-
-            <% @posts.each do |post| %>
-            <div class="post">
-                <%= link_to(post.content,"/posts/#{post.id}" ) %>
-            </div>
-            <% end %>         
-        　 </div>
-        </div>  
-    </div class="top-center">                       
+        </section>
+        <article class="show_connection_posts">
+            <h2>
+                <i class="fa-solid fa-link"></i>
+                <span>関連投稿</span>
+            </h2>
+            <% if @related_posts.count >= 3 %>
+                <ul> <!--急上昇投稿上位3つを表示-->
+                    <% @related_posts.each do |related_post| %>
+                        <li class="hot_article_li">
+                            <section class="article_main post_link neumorphism">
+                            <%= link_to "",post_show_path(id: related_post.id), class:"article_main_link_cover"  %>  
+                            <%= render 'posts/post', post: related_post %>
+                            </section>
+                            <section class="little_show_comment">
+                            <ul>
+                                <% related_post_comments = Post.where(parent_id: related_post.id) %>   <!--コメントを2つ表示-->
+                                <% related_post_comments.slice(0..1).each do |related_post_comment|%>  
+                                <%= render 'posts/comment_2', post: related_post_comment %> 
+                                <% end %>
+                            </ul>
+                            <% if related_post_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{related_post.id}", class: "comment_more_show"%>
+                            <% end %>
+                            </section>
+                        </li>
+                    <% end %>
+                </ul>
+            <% elsif @related_2_posts.count >= 3 %>
+                <ul> <!--急上昇投稿上位3つを表示-->
+                    <% @related_2_posts.each do |related_2_post| %>
+                        <li class="hot_article_li">
+                            <section class="article_main post_link neumorphism">
+                            <%= link_to "",post_show_path(id: related_2_post.id), class:"article_main_link_cover"  %>  
+                            <%= render 'posts/post', post: related_2_post %>
+                            </section>
+                            <section class="little_show_comment">
+                            <ul>
+                                <% related_2_post_comments = Post.where(parent_id: related_2_post.id) %>   <!--コメントを2つ表示-->
+                                <% related_2_post_comments.slice(0..1).each do |related_2_post_comment|%>  
+                                <%= render 'posts/comment_2', post: related_2_post_comment %> 
+                                <% end %>
+                            </ul>
+                            <% if related_2_post_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{related_2_post.id}", class: "comment_more_show"%>
+                            <% end %>
+                            </section>
+                        </li>
+                    <% end %>
+                </ul>
+            <% else %>
+                <ul> <!--急上昇投稿上位3つを表示-->
+                    <% @related_3_posts.each do |related_3_post| %>
+                        <li class="hot_article_li">
+                            <section class="article_main post_link neumorphism">
+                            <%= link_to "",post_show_path(id: related_3_post.id), class:"article_main_link_cover"  %>  
+                            <%= render 'posts/post', post: related_3_post %>
+                            </section>
+                            <section class="little_show_comment">
+                            <ul>
+                                <% related_3_post_comments = Post.where(parent_id: related_3_post.id) %>   <!--コメントを2つ表示-->
+                                <% related_3_post_comments.slice(0..1).each do |related_3_post_comment|%>  
+                                <%= render 'posts/comment_2', post: related_3_post_comment %> 
+                                <% end %>
+                            </ul>
+                            <% if related_3_post_comments.count >= 3 %>
+                                <%= link_to "さらにコメントを表示", "/posts/#{related_3_post.id}", class: "comment_more_show"%>
+                            <% end %>
+                            </section>
+                        </li>
+                    <% end %>
+                </ul>
+            <% end %>       
+        </article>
+    </div>               
 </div>

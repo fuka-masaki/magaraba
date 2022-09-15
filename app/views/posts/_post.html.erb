@@ -1,0 +1,52 @@
+<!--コメントチラ見系の部分テンプレート-->
+<div class="user_info">
+    <%= link_to "/home/user_post/#{post.user.id}" do %>
+        <div class="user_icon"><img src="<%= "/user_images/#{post.user.image_name}" %>" class="user_icon_image" ></div>
+    <% end %>
+    <div class="user_name_date">
+        <%= link_to "/home/user_post/#{post.user.id}" do %>
+            <div class="user_name <%= if post.user.name.length >= 28 
+                                        "over_28"
+                                    elsif post.user.name.length >= 15
+                                        "over_15"
+                                    elsif post.user.name.length >= 12
+                                        "over_12"
+                                    else
+                                    end %>">
+                <%= post.user.name %>
+            </div> 
+        <% end %>
+        <div class="user_date"><%= time_ago_in_words(post.created_at) %>前</div>
+    </div>
+</div>
+<%= link_to "#{post.Manga_name}", comics_each_path(id: Comic.where(name: post.Manga_name).pluck(:id)) ,class:"article_main_comic_name" %>
+<div class="article_main_tittle_contain">
+    <div class="article_main_tittle">
+        <%= post.try(:Title) %>
+    </div>
+    <div class="article_main_contain">
+        <div class="article_main_contain_text accordion-text js-accordion-text">
+        <%=safe_join(post.content.split("\n"),tag(:br)) %>
+        </div>
+    </div>
+</div>
+<hr class="article_main_line">        
+<div class="article_main_comment_icons_nums">
+    <div class="article_main_comment_icon_num_heart">
+        <div class="likes_buttons_<%= post.id %>">
+            <%= render 'likes/like', post: post, current_user: @current_user %>
+        </div>
+    </div>
+    <div class="article_main_comment_replay_icon_num">
+        <div class="article_main_comment_replay_icon"><i class="fa-regular fa-comment "></i></div>
+        <div class="article_main_comment_replay_num"><%= Post.where(parent_id: post.id).count %></div>
+    </div>
+    <% if Post.find_by(parent_id: post.id) %>
+        <div class="little_show">
+            <div class="little_show_under_icon">
+                <i class="fa-solid fa-sort-down"></i>
+            </div>
+            <div class="little_show_btn">コメントをチラ見</div>
+        </div>
+    <% end %>
+</div>

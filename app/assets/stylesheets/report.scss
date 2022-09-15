@@ -1,0 +1,81 @@
+.report{
+    width: 90%;
+    margin: 0 auto;
+    & > h1{
+        position: relative;
+        color: #484848;
+        margin-bottom: 2rem;
+        &::after{
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            content: '';
+            border-radius: 3px;
+            background-color: red;
+        }
+        & > i{
+            margin-right: 3px;
+            color:#e30000;
+        }
+    }
+    & > h2{
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #bdbdbd;
+    }
+    .article_show{
+        margin-bottom:2rem;
+    }
+}
+.article_main_comment_replay_report{
+    color: #5fb1c8;
+    font-size: 1.1rem;
+    margin: 4px 0 4px 4px;
+}
+.comic_name_report{
+    // position: relative;
+    // z-index: 2;
+    width: fit-content;
+    margin: 4px 0 9px 5px;
+    text-decoration: underline;
+    color: #5fb1c8;
+    font-size: 1.1rem;
+    
+    .new_post_comic_name_label_report{
+        font-size: 1rem;
+        position: absolute;
+        left: 16px;
+        top: -23px;
+        color: #545454;
+    }
+}
+.new_post_tittle_area_report{
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+.report_select{
+    margin-top: 3px;
+    background-color: #efefef;
+    border: 1px solid #b6b6b6;
+    color: #545454;
+    font-size: 1.1rem;
+    width: 308px;
+    border-radius: 40px;
+    padding: 9px 10px;
+}
+.report_submit{
+    margin-left: auto;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    display: block;
+    border-radius: 2rem;
+    width: 190px;
+    background-color: #ff2222;
+    padding: 1rem 1rem;
+    transition: all .3s;
+    border: none;
+    outline: none;
+}

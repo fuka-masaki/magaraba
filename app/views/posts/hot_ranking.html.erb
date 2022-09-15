@@ -1,0 +1,35 @@
+<% set_meta_tags title: "急上昇ランキング 漫画考察・ネタバレ・感想を投稿・共有するなら"  %>
+<% breadcrumb :hot_ranking %>
+<div class="main-t"> 
+    <div class="container">
+        <article class="hot_articles hot_ranking_index">
+            <h1>
+                <i class="fa-solid fa-fire-flame-curved aside_menu_icon"></i>
+                <span>急上昇ランキング</span>
+            </h1>
+            <ul> <!--急上昇投稿上位3つを表示-->
+                <% @hot_posts.each.with_index(1) do |hot_post, i| %>
+                <li class="hot_article_li">
+                    <div class="ranking_label hot_ranking"><%= i %></div>
+                    <section class="article_main post_link neumorphism">
+                    <%= link_to "",post_show_path(id: hot_post.id, ranking: "hot_ranking", num: i), class:"article_main_link_cover"  %> 
+                    <%= render 'posts/post', post: hot_post %>
+                    </section>
+                    <section class="little_show_comment">
+                    <ul>
+                        <% hot_post_comments = Post.where(parent_id: hot_post.id) %>   <!--コメントを2つ表示-->
+                        <% hot_post_comments.slice(0..1).each do |hot_post_comment|%>  
+                        <%= render 'posts/comment_2', post: hot_post_comment %> 
+                        <% end %>
+                    </ul>
+                    <% if hot_post_comments.count >= 3 %>
+                        <%= link_to "さらにコメントを表示", "/posts/#{hot_post.id}", class: "comment_more_show"%>
+                    <% end %>
+                    </section>
+                </li>
+                <% end %>
+            </ul>
+        </article>
+        <%= paginate @hot_posts %>
+    </div>
+</div>

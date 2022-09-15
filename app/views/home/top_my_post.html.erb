@@ -1,89 +1,254 @@
-<% content_for :css do %>
-<%= stylesheet_link_tag 'top-my-post' %>
-<% end %>
-<div class="main-t"> 
-    <div class="ichiran">
-        <div class="ichiran-title">漫画一覧</div>
-            
-        <div class="comics">
-            <div class="comic">
-                <%= link_to("ONE PIECE",comics_each_path(id:1))%>
-            </div>
-            <div class="comic">                   
-                <%= link_to("HUNTER×HUNTER",comics_each_path(id:2))%>
-            </div>
-            <div class="comic">                 
-                <%= link_to("東京卍リベンジャーズ",comics_each_path(id:3))%>
-            </div>
-            <div class="comic">                 
-                <%= link_to("呪術廻戦",comics_each_path(id:4))%>
-            </div>                           
-            <div class="comic">                    
-                <%= link_to("怪獣8号",comics_each_path(id:5))%>
-            </div>
-            <div class="comic">                  
-                <%= link_to("キングダム",comics_each_path(id:6))%>
-            </div>
-            <div class="comic">                  
-                <%= link_to("名探偵コナン",comics_each_path(id:7))%>
-            </div>
-            <div class="comic">                  
-                <%= link_to("僕のヒーローアカデミア",comics_each_path(id:8))%>
-            </div>           
-            <div class="comic">                   
-                <%= link_to("ワンパンマン",comics_each_path(id:9))%>
-            </div>
-            <div class="comic">                         
-                <%= link_to("ワールドトリガー",comics_each_path(id:10))%>
-            </div>   
-            <div class="comic">                 
-                <%= link_to("ブラッククローバー",comics_each_path(id:11))%>
-            </div>      
-            <div class="comic">                               
-                <%= link_to("推しの子",comics_each_path(id:12))%>
-            </div>       
-        </div class="comics">
-            
-    </div class="ichiran">
-
-    <div class="top-center">
-        <div class="top-kind">
-            <div class="search">
-                    <li><i class="fas fa-search"></i></li>
-                    <%= search_form_for @q , url: home_search_path do |f| %>
-                                    <%= f.label :Manga_name_cont, '漫画名' %>
-                                    <%= f.search_field :Manga_name_cont %>
-                                    <br>
-                                    <%= f.submit '検索' %>
-                    <% end %>
-
-            </div class="search">
-            <div class="popular">
-                <%= link_to("人気","/home/top")%>
-            </div class="popular">
-            <div class="super-new">
-                <%= link_to("最新","/home/top_super_new")%>
-            </div class="super-new">
-            <div class="favorite">
-                <%= link_to("お気に入り","/users/:id/top_favorite")%>
-            </div class="favorite">
-            <div class="my-post">
-                <%= link_to("自分の投稿","/home/top_my_post")%>
-            </div class="my-post">    
-        </div class="top-kind">  
-            
-        <div class="container">
-                <div class="top">
-                    <p>トップ</p>
-                </div>
-        </div>  
-    </div class="top-center">               
-
-    <% @my_posts.each do |post| %>
-        <div class="post">
-            <div>漫画名</div>  <div>時間</div>  <div>ユーザー名</div>
-                <%= link_to(post.content, "") %>
-                <div>コメント数</div>
-        </div>   
+<% set_meta_tags title: "マイページ 漫画考察・ネタバレ・感想を投稿・共有するなら"  %>
+<% breadcrumb :top_my_post %>
+<div class="main-t">
+  <% if @error_message %>
+          <div class="login_error">
+            <%= @error_message %>
+          </div> 
+  <% end %> 
+  <div class="user_icon_change_form">
+    <div class="user_icon_change_x_btn_cover">
+      <i class="fa-solid fa-xmark" id="user_icon_change_x_btn"></i>
+    </div>
+    <h1 class="user_icon_change_title">アイコン変更</h1>
+    <%= form_tag("/users/change_image", {multipart: true}) do %>
+      <div class="user_icon_form_area">
+        <label class="image_label">アイコン</label>
+        <input name="image" type="file" value="<%=  @current_user.image_name %>" class="user_icon_change" >
+        <% if @current_user.image_name != "kkrn_icon_user_3.png"%>
+          <%= link_to"/users/default/#{@current_user.id}", class:"user_info_default_icon" do %>
+            <i class="fa-solid fa-reply"></i>
+            <label>デフォルトアイコンに戻す</label>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="user_icon_change_btn_cover">
+        <input type="submit" value="変更" class="user_icon_change_btn_submit">
+      </div>
     <% end %>
+  </div>
+  <div class="user_name_change_form">
+    <div class="user_name_change_x_btn_cover">
+      <i class="fa-solid fa-xmark" id="user_name_change_x_btn"></i>
+    </div>
+    <h1>ユーザー名変更</h1>
+    <%= form_tag("/users/change_name",onsubmit:"return false;") do %>
+    <span class="user_name_change_error">ユーザー名は30文字以内にしてください</span>
+      <div class="user_name_form_area">
+        <label class="user_label">ユーザー名</label>
+        <input type="text" name="name" value="<%= @current_user.name %>" class="user_name_form">
+      </div>
+      <div class="user_name_change_btn_cover">
+        <input type="button" value="変更" onclick="submit();" class="user_name_change_btn_submit">
+      </div>
+    <% end %>
+  </div>
+  <div class="user_info_change_form"> 
+    <div class="user_info_x_btn_cover">
+      <i class="fa-solid fa-xmark" id="user_info_x_btn"></i>
+    </div>
+    <h1>パスワード変更</h1>
+    <%= form_tag("/users/change_pass",onsubmit:"return false;")do %>
+    <div class="user_pass_change_form_area">
+      <span class="user_pass_change_error">パスワードが一致していません</span>
+      <div class="user_info_form_area">
+        <label class="password_label">新しいパスワード</label>
+        <input type="text" name="pass1" value="<%=@current_user.password %>" class="user_info_form user_pas_change_form" style="-webkit-text-security:disc;">
+      </div>
+      <div class="user_info_form_area">
+          <label class="password_label">新しいパスワード確認</label>
+          <input type="text" name="pass2" value="<%= @password_confirmation %>" class="user_info_form user_pas_confirmation_change_form" style="-webkit-text-security:disc;">
+        </div>
+      <div class="user_info_change_btn_cover">
+        <input type="button" value="変更" onclick="submit();" class="user_info_change_btn"> 
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="best_comics_change">
+    <div class="best_comics_x_btn_cover">
+      <i class="fa-solid fa-xmark" id="best_comics_x_btn"></i>
+    </div>
+    <h1>特に好きな漫画</h1>
+    <div class="best_comics_change_form">
+     <%= form_tag("/users/change_like",onsubmit:"return false;") do %>
+      <div class="best_comics_form_area">
+        <label class="best_comic_label">漫画名１</label>
+        <input type="text" name="comic1" value="<%= @current_user.comic1 %>" class="best_comic_form best_comic_form_1" placeholder="例：ワンピース">
+      </div>
+      <div class="best_comics_form_area">
+        <label class="best_comic_label">漫画名２</label>
+        <input type="text" name="comic2" value="<%= @current_user.comic2 %>" class="best_comic_form best_comic_form_2" placeholder="例:ドラゴンボール" >
+      </div>
+      <div class="best_comics_form_area">
+        <label class="best_comic_label">漫画名３</label>
+        <input type="text" name="comic3" value="<%= @current_user.comic3 %>" class="best_comic_form best_comic_form_3" placeholder="例:ハンターハンター">
+      </div>
+      <div class="best_comic_change_btn_cover">
+        <input type="button" value="変更" onclick="submit();" class="best_comics_change_btn">
+      </div>
+     <% end %>
+    </div>
+  </div>
+
+
+  <div class="know_comics_change">
+    <div class="know_comics_x_btn_cover">
+      <i class="fa-solid fa-xmark" id="know_comics_x_btn"></i>
+    </div>
+    <h1>履修済みの漫画</h1>
+    <div class="know_comics_change_form">
+      <%= form_tag("/users/change_read") do %>
+      <div class="know_comics_form_area">
+        <label class="know_comic_label">漫画名</label>
+        <textarea type="text" name="read" class="know_comic_form" placeholder="例:ワンピース、ドラゴンボール、ナルト"><%= @current_user.read %></textarea>
+      </div>
+      <div class="know_comic_change_btn_cover">
+        <input type="submit" value="変更" class="know_comics_change_btn">
+      </div>
+      <% end %>
+    </div>
+  </div> 
+
+  <article class="top_my_post">
+      <h1 class="top_my_post_tittle">
+        <i class="fa-solid fa-bookmark"></i>
+        <span>マイページ</span>
+      </h1>
+      <div class="login_user_information">
+        <div class="login_user_icon_area">
+            <div class="login_user_icon">
+              <img src="<%= "/user_images/#{@current_user.image_name}" %>">
+              <div class="user_icon_change_btn <%= 'user_icon_default' if @current_user.image_name == "kkrn_icon_user_3.png" %>"><i class="fa-regular fa-images"></i></div> 
+            </div>
+        </div>
+        <h2 class="login_user_name">
+          <%= @current_user.name %>
+          <i class="fa-solid fa-pen"></i>
+        </h2>
+        <div class="login_user_name_pas_change">
+          <i class="fa-solid fa-lock"></i>
+          <span>パスワードの変更</span>
+        </div>
+        <div class="user_like_comics">
+          <div class="user_most_like_comics">
+            <div class="user_most_like_tittle">
+              <h3>特に好きな漫画</h3>
+              <div class="best_comics_change_icon_btn">
+                <i class="fa-solid fa-pen"></i>
+              </div>
+            </div>
+            <ul class="user_most_like_content">
+              <% if @current_user.comic1 ==nil && @current_user.comic2 ==nil && @current_user.comic3 ==nil %>
+                <li class="user_most_nothing_like_comic">特にない</li>
+              <% else%>
+                <li class="user_most_like_comic"><%= @current_user.comic1 %></li>
+                <li class="user_most_like_comic"><%= @current_user.comic2 %></li>
+                <li class="user_most_like_comic"><%= @current_user.comic3 %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="user_know_manga">
+            <div class="user_know_manga_tittle">
+              <h3>履修済みの漫画</h3>
+              <div class="know_comics_change_icon_btn">
+                <i class="fa-solid fa-pen"></i>
+              </div>
+            </div>
+            <% if @current_user.read == nil %>
+              <div class="user_know_manga_index read_nothing">
+                特にない
+              </div>
+            <% else %>
+              <div class="user_know_manga_index">
+                <%= @current_user.read %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab_my_post_contents"> <!-- 自分の投稿一覧 -->
+        <h2>
+          <i class="fa-regular fa-circle-user"></i>
+          <span>自分の投稿一覧</span>
+        </h2>
+        <ul class="my_post_tab">
+          <li class="my_post_tab_list_item <%= @my_post_new_ranks_tab %>"><h4>投稿順</h4></li>
+          <li class="my_post_tab_list_item <%= @my_post_view_ranks_tab %>"><h4>閲覧順</h4></li>
+          <li class="my_post_tab_list_item <%= @my_post_like_ranks_tab %>"><h4>いいね順</h4></li>
+        </ul>
+        <% if Post.find_by(user_id: @current_user.id,parent_id:nil) %>
+          <div class="tab_my_post_content <%= @my_post_new_ranks_tab_content %>">
+            <% @my_post_new_ranks.each do |my_post_new_rank| %>
+              <section class="article_main post_link neumorphism">
+                <%= link_to "",post_show_path(id: my_post_new_rank.id), class:"article_main_link_cover"  %>
+                <%= render 'posts/post', post: my_post_new_rank %>
+              </section>
+              <section class="little_show_comment">
+                <ul>
+                  <% my_post_new_rank_comments = Post.where(parent_id: my_post_new_rank.id) %>
+                  <% my_post_new_rank_comments.slice(0..1).each do |my_post_new_rank_comment| %>
+                    <%= render 'posts/comment_2', post: my_post_new_rank_comment %>            
+                  <% end %>
+                </ul>
+                <% if my_post_new_rank_comments.count >= 3 %>
+                  <%= link_to "さらにコメントを表示", "/posts/#{my_post_new_rank.id}", class: "comment_more_show"%>
+                <% end %>
+              </section>
+            <% end %>
+            <%= paginate @my_post_new_ranks,:param_name => 'my_post_new_ranks_page',params: {:my_post_tab_class =>"my_post_new_ranks"} %>
+          </div>
+          <div class="tab_my_post_content <%= @my_post_view_ranks_tab_content %>">
+            <% @my_post_view_ranks.each do |my_post_view_rank| %>
+              <section class="article_main post_link neumorphism">
+                <%= link_to "",post_show_path(id: my_post_view_rank.id), class:"article_main_link_cover"  %>
+                <%= render 'posts/post', post: my_post_view_rank %>
+              </section>
+              <section class="little_show_comment">
+                <ul>
+                  <% my_post_view_rank_comments = Post.where(parent_id: my_post_view_rank.id) %>
+                  <% my_post_view_rank_comments.slice(0..1).each do |my_post_view_rank_comment| %>
+                    <%= render 'posts/comment_2', post: my_post_view_rank_comment %>            
+                  <% end %>
+                </ul>
+                <% if my_post_view_rank_comments.count >= 3 %>
+                  <%= link_to "さらにコメントを表示", "/posts/#{my_post_view_rank.id}", class: "comment_more_show"%>
+                <% end %>
+              </section>
+            <% end %>
+            <%= paginate @my_post_view_ranks,:param_name => 'my_post_view_ranks_page',params: {:my_post_tab_class =>"my_post_view_ranks"} %>
+          </div>
+          <div class="tab_my_post_content <%= @my_post_like_ranks_tab_content %>">
+            <% @my_post_like_ranks.each do |my_post_like_rank| %>
+              <section class="article_main post_link  neumorphism">
+                <%= link_to "",post_show_path(id: my_post_like_rank.id), class:"article_main_link_cover"  %>
+                <%= render 'posts/post', post: my_post_like_rank %>
+              </section>
+              <section class="little_show_comment">
+                <ul>
+                  <% my_post_like_rank_comments = Post.where(parent_id: my_post_like_rank.id) %>
+                  <% my_post_like_rank_comments.slice(0..1).each do |my_post_like_rank_comment| %>
+                    <%= render 'posts/comment_2', post: my_post_like_rank_comment %>            
+                  <% end %>
+                </ul>
+                <% if my_post_like_rank_comments.count >= 3 %>
+                  <%= link_to "さらにコメントを表示", "/posts/#{my_post_like_rank.id}", class: "comment_more_show"%>
+                <% end %>
+              </section>
+            <% end %>
+            <%= paginate @my_post_like_ranks,:param_name => 'my_post_like_ranks_page',params: {:my_post_tab_class =>"my_post_like_ranks"} %>
+          </div>
+        <% else %>
+          <div class="my_post_nil_cover">
+            <div class="my_post_nil">
+              <i class="fa-regular fa-pen-to-square"></i>
+              <h3>投稿がありません</h3>
+              <span>気軽に投稿してみよう！</span>
+              <div class="my_post_nil_new_post_btn">投稿してみる</div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </article>
 </div class="main-t">   

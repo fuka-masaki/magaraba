@@ -1,0 +1,71 @@
+<!--返信有り.ver 主にshow-->
+<div class="article_main_comment neumorphism">
+    <%= link_to "/home/user_post/#{post.user.id}" do %>
+        <div class="article_main_comment_icon">
+            <img src="<%= "/user_images/#{post.user.image_name}" %>" class="user_icon_image" >
+        </div>
+    <% end %>
+    <div class="article_main_comment_info">
+        <div class="article_main_comment_names" style="display:flex;">
+            <div class="article_main_comment_name_date">
+                <%= link_to "/home/user_post/#{post.user.id}" do %>
+                    <span class="article_main_comment_name <%= if post.user.name.length >= 28 
+                                                                "over_28"
+                                                            elsif post.user.name.length >= 15
+                                                                "over_15"
+                                                            elsif post.user.name.length >= 12
+                                                                "over_12"
+                                                            else
+                                                            end %>">
+                        <%= post.user.name %></span>
+                <% end %>
+                <span class="article_main_comment_date"><%= time_ago_in_words(post.created_at) %>前</span>
+            </div>
+            <div class="article_main_comment_menu">
+                <div class="comment_user_menu">
+                    <i class="fa-solid fa-ellipsis" style="pointer-events: none;"></i>
+                </div>
+                <div class="comment_user_menu_show">
+                    <% if post.user.id == @current_user.try(:id) %>
+                        <%= link_to "/posts/#{post.id}/edit", class:"comment_post_edit" do %>
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            編集
+                        <% end %>
+                        <%= link_to "/posts/#{post.id}/child_grand_destroy",class:"comment_post_destroy",method: :post,data: {confirm: "削除しますか？"} do %>
+                            <i class="fa-solid fa-trash-can"></i>
+                            削除
+                        <% end %>
+                        <a href="#" class="user_menu_cancel"><i class="fa-solid fa-xmark"></i>キャンセル</a>
+                    <% else %>
+                        <%= link_to "/posts/report/#{post.id}",class:"comment_post_report", method: :post do %>
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            通報                                
+                        <% end %>
+                        <a href="#" class="user_menu_cancel"><i class="fa-solid fa-xmark"></i>キャンセル</a>
+                    <% end %>
+                </div>                           
+            </div>                           
+        </div>  
+        <% if Post.find_by(id:post.reply_id).present? %>
+            <div class="article_main_comment_replay">
+                @<%= Post.find(post.reply_id).user.name %>
+            </div>
+        <% end %>
+        <div class="article_main_comment_contain"><%=safe_join(post.content.split("\n"),tag(:br)) %></div>
+        <hr class="article_main_comment_line">
+        <div class="article_main_comment_icons_nums">
+            <div class="article_main_comment_icon_num_heart">
+                <div class="likes_buttons_<%= post.id %>">
+                    <%= render 'likes/like', post: post, current_user: @current_user %>
+                </div>
+            </div> 
+            <div class="article_main_comment_replay_icon_num">
+                <div class="article_main_comment_replay_icon"><i class="fa-regular fa-comment "></i></div>
+                <div class="article_main_comment_replay_num"><%=Post.where(parent_id: post.id).count %></div>
+            </div>
+            <div class="article_main_comment_replay_area">
+                <div class="article_main_comment_replay_btn_2">返信</div>
+            </div>
+        </div>
+    </div>
+</div>

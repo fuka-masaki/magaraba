@@ -1,0 +1,75 @@
+<% breadcrumb :post_report, @post %>
+<div class="main-t">   
+        <div class="report">
+        <h1 class="report_tittle"><i class="fa-solid fa-circle-exclamation"></i>通報</h1>
+        <h2>通報する投稿</h2>
+        <section class="article_show">
+            <div class="article_main  post_no_link neumorphism">
+                <div class="user_info">
+                        <div class="user_icon">
+                            <img src="<%= "/user_images/#{@post.user.image_name}" %>" class="user_icon_image" >
+                        </div>
+                    <div class="user_name_date">                    
+                            <div class="user_name">
+                                <%= @post.user.name %>
+                            </div>
+                        <div class="user_date">
+                            <%= time_ago_in_words(@post.created_at) %>前
+                        </div>
+                    </div>         
+                </div>
+                <!-- <hr class="article_main_line1"> -->
+                <% if @post.reply_id %>
+                <div class="article_main_comment_replay_report">
+                    @<%= Post.find(@post.reply_id).user.name %>
+                </div>
+                <% else %>
+                <div class="comic_name_report">
+                    <%= @post.Manga_name %>
+
+                </div>
+                <% end %>
+                <div class="article_main_tittle_contain">
+                <% if @post.Title.present? %>
+                    <div class="new_post_tittle_area_report">
+                        <%= @post.Title %>
+                    </div>
+                <% end %>
+                <div class="new_post_content_area_report">
+                    <%=safe_join(@post.content.split("\n"),tag(:br)) %>  
+                </div>
+                </div>
+                <hr class="article_main_line">
+                <div class="article_main_comment_icons_nums">
+                    <div class="article_main_comment_icon_num_heart">
+                        <div class="likes_buttons_<%= @post.id %>" style="pointer-events: none;">
+                            <%= render 'likes/like',post: @post, current_user: @current_user %>
+                        </div>
+                    </div>
+                    <div class="article_main_comment_replay_icon_num">
+                        <div class="article_main_comment_replay_icon"><i class="fa-regular fa-comment"></i></div>
+                        <div class="article_main_comment_replay_num"><%= Post.where(parent_id: @post.id).count %></div>
+                    </div>
+                </div>
+            </div>
+        </section>       
+        <h2>通報理由</h2>
+        <div class="user_menu_show_icon">
+            <%= form_tag("/reports/create/#{@post.id}") do %>  
+            <div class="report_kind">
+                <select name="kind" class="report_select">
+                    <option name="one" value="興味がない" selected>興味がない</option>
+                    <option name="two" value="スパム(迷惑な内容)である">スパム(迷惑な内容)である</option>
+                    <option name="tree" value="攻撃的な内容である">攻撃的な内容である</option>
+                    <option name="four" value="不審な内容である">不審な内容である</option>
+                    <option name="five" value="差別的な内容である">差別的な内容である</option>
+                </select> 
+            </div> 
+            <div>
+                <%= submit_tag("通報する", data: { confirm: "通報しますか？"},class:"report_submit")  %>
+            </div>
+            <% end %>              
+        </div>              
+        </div>
+</div>
+    

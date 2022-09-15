@@ -1,0 +1,25 @@
+.comics_index_tittle{  
+    position: relative;
+    margin-bottom: 1.4rem;
+    color: #484848;
+    
+    &::after{
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        content: '';
+        border-radius: 3px;
+        background-image: -webkit-gradient(linear, right top, left top, from(#58f139), to(#598d38));
+        background-image: -webkit-linear-gradient(right, #58f139 0%, #598d38 100%);
+        background-image: linear-gradient(90deg, #6bb93a, #58f139 72%);
+    }
+    & > i{
+        padding-right: 8px !important;
+        color: #199919;
+        background-image: linear-gradient(30deg, #60b927, #58f139 72%);
+        -webkit-background-clip: text;//テキストでくり抜く
+        -webkit-text-fill-color: transparent;
+    }
+}

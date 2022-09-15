@@ -1,83 +1,143 @@
-<div class="main-t"> 
-    <div class="ichiran">
-            <div class="ichiran-title">漫画一覧</div>
-            
-            <div class="comics">
-                <div class="comic">
-                        <%= link_to("ONE PIECE",comics_each_path(id:1))%>
+<% breadcrumb :home_search, @search %>
+<div class="main-t">     
+  <div class="container">
+    <div class="search_result">
+      <h1><i class="fa-solid fa-magnifying-glass"></i>検索結果</h1>
+      <ul class="tab">
+        <li class="tab_list_item search_tab_list_item <%= @search_posts_tab %>"><h4>投稿</h4></li>
+        <li class="tab_list_item search_tab_list_item <%= @search_comics_tab %>"><h4>漫画</h4></li>
+        <li class="tab_list_item search_tab_list_item <%= @search_users_tab %>"><h4>ユーザー</h4></li>
+      </ul>
+      <div class="popular_article_content">
+        <ul class="tab_content <%= @search_posts_tab_content %>">
+          <% if @posts.present? %>
+            <% @posts.each do |post|%>
+              <li>
+                <section class="article_main post_link neumorphism">
+                  <%= link_to "",post_show_path(id: post.id), class:"article_main_link_cover"  %>
+                  <%= render 'posts/post', post: post %>
+                </section>
+                <section class="little_show_comment" style="width:100%;"> 
+                  <ul>
+                  <% post_comments = Post.where(parent_id: post.id) %>
+                  <% post_comments.first(2).each do |post_comment|%>
+                    <%= render 'posts/comment_2', post: post_comment %>
+                  <% end %>
+                  </ul>
+                  <% if post_comments.count >= 3 %>
+                    <%= link_to "さらにコメントを表示", "/posts/#{post.id}", class: "comment_more_show"%>
+                  <% end %>
+                </section>
+              </li>
+            <% end %>
+            <%= paginate @posts,:param_name => 'search_posts_page',params: {:tab_class =>"search_posts"}%>
+          <% else %>
+          <div class="no_search_back">
+            <div class="no_search">
+              <i class="fa-solid fa-book-open"></i>
+              <span>キーワードに関する</span>
+              <span>投稿</span>
+              <span>が見つかりませんでした</span>
+            </div>
+          </div>
+          <% end %>
+        </ul>
+        <ul class="tab_content popular_manga_ul <%= @search_comics_tab_content %>">
+        <% if @comics.present? %>
+          <% @comics.each do |comic| %>
+            <li class="popular_manga_li">
+              <div class="popular_manga neumorphism">
+                <%= link_to "",comics_each_path(id: comic.id), class:"popular_manga_post_link_cover" %>
+                <div class="popular_manga_name_icon">
+                  <div class="popular_manga_name">
+                    <span><%= comic.name %></span>
+                  </div>
+                  <% popular_manga_posts = Post.includes(:user).where(id: @ids,parent_id: nil,Manga_name: comic.name).order([Arel.sql('field(id, ?)'), @ids]) %>
+                  <% if popular_manga_posts.count > 0 %>
+                    <div class="popular_manga_more_post">
+                      <div class="popular_manga_post_more_under_icon">
+                        <i class="fa-solid fa-sort-down"></i>
+                      </div>
+                      <div class="">投稿をチラ見</div>
+                    </div>
+                  <% end %>
                 </div>
-                <div class="comic">                   
-                        <%= link_to("HUNTER×HUNTER",comics_each_path(id:2))%>
-                </div>
-                <div class="comic">                 
-                        <%= link_to("東京卍リベンジャーズ",comics_each_path(id:3))%>
-                </div>
-                <div class="comic">                 
-                        <%= link_to("呪術廻戦",comics_each_path(id:4))%>
-                </div>                           
-                <div class="comic">                    
-                        <%= link_to("怪獣8号",comics_each_path(id:5))%>
-                </div>
-                <div class="comic">                  
-                        <%= link_to("キングダム",comics_each_path(id:6))%>
-                </div>
-                <div class="comic">                  
-                        <%= link_to("名探偵コナン",comics_each_path(id:7))%>
-                </div>
-                <div class="comic">                  
-                        <%= link_to("僕のヒーローアカデミア",comics_each_path(id:8))%>
-                </div>           
-                <div class="comic">                   
-                        <%= link_to("ワンパンマン",comics_each_path(id:9))%>
-                </div>
-                <div class="comic">                         
-                        <%= link_to("ワールドトリガー",comics_each_path(id:10))%>
-                </div>   
-                <div class="comic">                 
-                        <%= link_to("ブラッククローバー",comics_each_path(id:11))%>
-                </div>      
-                <div class="comic">                               
-                        <%= link_to("推しの子",comics_each_path(id:12))%>
-                </div>       
-            </div class="comics">
-            
-    </div class="ichiran">
-    <div class="top-center">
-            <div class="top-kind">
-                <div class="search">
-                        <li><i class="fas fa-search"></i></li>
-                        <%= search_form_for @q , url: home_search_path do |f| %>
-                                    <%= f.label :Manga_name_cont, '漫画名' %>
-                                    <%= f.search_field :Manga_name_cont %>
-                                    <br>
-                                    <%= f.submit '検索' %>
-                        <% end %>
-                </div class="search">
-                <div class="popular">
-                        <%= link_to("人気","/home/top")%>
-                </div class="popular">
-                <div class="super-new">
-                        <%= link_to("最新","/home/top_super_new")%>
-                </div class="super-new">
-                <div class="favorite">
-                        <%= link_to("お気に入り","/users/:id/top_favorite")%>
-                </div class="favorite">
-                <div class="my-post">
-                        <%= link_to("自分の投稿","/home/top_my_post")%>
-                </div class="my-post">    
-            </div class="top-kind">       
+              </div>
+              <div class="popular_manga_posts">
+                <ul class="popular_manga_post_ul">
+                  <li>
+                    <% popular_manga_posts.slice(0..2).each do |popular_manga_post|%>
+                      <section class="article_main  post_link popular_manga_post neumorphism">
+                        <%= link_to "",post_show_path(id: popular_manga_post.id), class:"article_main_link_cover"  %>
+                        <%= render 'posts/post', post: popular_manga_post %>
+                      </section>
+                    <% end %> 
+                  </li>
+                </ul>
+                <%= link_to "もっと見る", comics_each_path(id: comic.id), class: "comment_more_show"%>
+              </div>
+            </li>
+          <% end %>
+          <%= paginate @comics,:param_name => 'search_comics_page',params: {:tab_class =>"search_comics"}%>
+        <% else %>
+        <div class="no_search_back">
+          <div class="no_search">
+            <i class="fa-solid fa-book"></i>
+            <span>キーワードに関する</span>
+            <span>漫画</span>
+            <span>見つかりませんでした</span>
+          </div>
+        </div>
+        <% end %>
+        </ul>
+        <ul class="tab_content <%= @search_users_tab_content %>">
+          <% if @users.present? %>
+            <% @users.each do |user| %>
+              <%= link_to "/home/user_post/#{user.id}", class:"search_user_link_cover" do %>
+                <li class="search_user_li">
+                  <div class="search_user neumorphism">
+                    <div class="search_user_icon">
+                      <img src="<%= "/user_images/#{user.image_name}" %>" class="search_user_img" >
+                    </div>
+                    <div class="search_user_info">
+                      <div class="search_user_name"><%= user.name %></div>
+                      <div class="search_user_most_coimcs">
+                        <span>特に好きな漫画</span>
+                        <ul class="user_most_like_content">
+                          <% if user.comic1 ==nil && user.comic2 ==nil && user.comic3 ==nil %>
+                            <li class="user_most_nothing_like_comic">特にない</li>
+                          <% else%>
+                            <li class="user_most_like_comic"><%= user.comic1 %></li>
+                            <li class="user_most_like_comic"><%= user.comic2 %></li>
+                            <li class="user_most_like_comic"><%= user.comic3 %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                      <div class="search_user_post_count">
+                        <% l = Post.where(user_id:user.id, parent_id: nil) %>
+                        <% u=l.count %>
+                        投稿数:<%= u %>件
+                      </div>
+                    </div>    
+                  </div>
+                </li>
+              <% end %>
+            <% end %>
+            <%= paginate @users,:param_name => 'search_users_page',params: {:tab_class =>"search_users"}%>
+          <% else %>
+            <div class="no_search_back">
+              <div class="no_search">
+                <i class="fa-solid fa-user"></i>
+                <span>キーワードに関する</span>
+                <span>ユーザー</span>
+                <span>が見つかりませんでした</span>
+              </div>
+            </div>
+          <% end %>
+        </ul>
+        
+      </div>
 
-            <div class="container">
-                <div class="top">
-                        <p>トップ</p>
-                </div>
-            </div>   
-    </div class="top-center">    
-    <% @new_posts.each do |post| %>
-            <div class="post">
-                <div>漫画名</div>  <div>時間</div>  <div>ユーザー名</div>
-                <%= link_to(post.content, "") %>
-                <div>コメント数</div>
-            </div>   
-    <% end %>                                
-</div class="main-t">   
+    </div>
+  </div>   
+</div class="main-t">  

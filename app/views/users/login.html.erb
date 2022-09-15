@@ -1,32 +1,27 @@
- <div class="main-t"> 
-    
-    <main> 
-
-    <% if @error_message %>
-    <div class="login_error">
-    <%= @error_message %>
-    </div> 
-    <% end %>   <!--深谷昌輝　追加　11月14日夜 -->
-
-    <%= form_tag("/login") do %>  
-      <div class="container2">  
-        <div class="user-form">
-          <div class="form-title">ログイン</div>
-            <div class="item">
-             <div class="form-item">ユーザーネーム</div>
-             <input type="text" name="name" value="<%= @name %>">
-             <div class="form-item">パスワード</div>
-             <input type="text" name="password" value="<%= @password %>">
-             <br></br>
-             <div class="botton">
-             <input type="submit" value="ログイン">
-             </div>
-             <div class="mitouroku"><%= link_to("登録がお済でない方はこちら","/users/shinki")%></div>
+<div class="main-t login_show_background_color"> 
+      <!--深谷昌輝 追加 11月14日夜 -->
+    <%= form_tag("/login",onsubmit:"return false;") do %>  
+      <div class="login_show">  
+          <h1>ログイン</h1>
+            <div class="login_form_area">
+              <% if @error_message %>
+                <div class="login_error">
+                  <%= @error_message %>
+                </div> 
+              <% end %>
+              <div class="login_show_form_area">
+                <label class="user_label">ユーザー名</label>
+                <input type="text" name="name" value="<%= @name %>" class="login_show_form login_show_form_name">
+              </div>
+              <div class="login_show_form_area">
+                <label class="password_label">パスワード</label>
+                <input type="text" name="password" value="<%= @password %>" class="login_show_form login_show_form_password">
+              </div>
+              <div class="login_btn_cover">
+                <input type="button" onclick="submit();" value="ログイン" class="login_btn">
+              </div>
+              <div class="no_login_user_link"><span>登録がお済みでない方は</span><%= link_to"こちら","/users/shinki"%></div>
             </div>
-          </div>  
         </div>   
-        <% end %> 
-
-    </main>
-  </div>   
-</html>
+    <% end %> 
+</div>   

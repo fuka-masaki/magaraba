@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reporter_id: 1
+  violator_id: 1
+  kind: MyString
+  content: MyString
+
+two:
+  reporter_id: 1
+  violator_id: 1
+  kind: MyString
+  content: MyString

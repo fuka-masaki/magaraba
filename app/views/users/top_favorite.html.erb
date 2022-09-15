@@ -1,79 +1,45 @@
-<% content_for :css do %>
- <%= stylesheet_link_tag 'top-favorite' %>
- <% end %>
- <div class="main-t"> 
-         <div class="ichiran">
-            <div class="ichiran-title">漫画一覧</div>
-            <div class="comics">
-                <div class="comic">
-                    <%= link_to("ONE PIECE","/ONE_PIECE")%>
-                </div>
-                <div class="comic">                   
-                    <%= link_to("HUNTER×HUNTER","/HUNTER_HUNTER")%>
-                </div>
-                <div class="comic">                 
-                      <%= link_to("東京卍リベンジャーズ","/manji",{class: "manji"})%>
-                </div>
-                <div class="comic">                 
-                      <%= link_to("呪術廻戦","/juju",{class: "juju"})%>
-                </div>                           
-                <div class="comic">                    
-                      <%= link_to("怪獣8号","/hatigou",{class: "hatigou"})%>
-                </div> 
-                <div class="comic">                  
-                      <%= link_to("キングダム","/kingdom",{class: "kingdom"})%>
-                </div>
-                <div class="comic">                  
-                      <%= link_to("名探偵コナン","/conan",{class: "conan"})%>
-                </div>
-                <div class="comic">                  
-                      <%= link_to("僕のヒーローアカデミア","/hiroaka",{class: "hiroaka"})%>
-                </div>           
-                <div class="comic">                   
-                      <%= link_to("ワンパンマン","/punch",{class: "punch"})%>
-                </div>
-                <div class="comic">                         
-                      <%= link_to("ワールドトリガー","/trigger",{class: "trigger"})%>
-                </div>   
-                <div class="comic">                 
-                      <%= link_to("ブラッククローバー","/clover",{class: "clover"})%>
-                </div>      
-                <div class="comic">                               
-                      <%= link_to("推しの子","/oshi",{class: "oshi"})%>
-                </div>       
-            </div class="comics">
-          </div class="ichiran">
-    <div class="top-center">
-           <div class="top-kind">
-            <div class="search">
-             <li><i class="fas fa-search"></i></li>
-             <form action="http://localhost:3000/home/top" method="get">
-             <li><input type="search" name="search" placeholder="キーワードを入力"></li>
-             <li><input type="submit" name="submit" value="検索"><li>
-             </form>
-             </div class="search">
-            <div class="popular">
-             <%= link_to("人気","/home/top")%>
-            </div class="popular">
-            <div class="super-new">
-             <%= link_to("最新","/home/top-super-new")%>
-            </div class="super-new">
-            <div class="favorite">
-              <%= link_to("お気に入り","/users/:id/top-favorite")%>
-            </div class="favorite">
-            <div class="my-post">
-             <%= link_to("自分の投稿","/home/top-my-post")%>
-            </div class="my-post">    
-           </div class="top-kind">       
-
-        <div class="container">
-           <div class="top">
-                <p>トップ</p>
-            </div> 
-        </div>   
-    </div class="top-center">                                    
- </div class="main-t">   
-  
-  
-
-  
+<% set_meta_tags title: "お気に入り 漫画考察・ネタバレ・感想を投稿・共有するなら"   %>
+<% breadcrumb :top_favorite %>
+<div class="main-t"> 
+    <div class="container">
+    <article>
+      <h1 class="top_favorite_tittle">
+        <i class="fa-solid fa-heart"></i>
+        <span>お気に入り</span>
+      </h1>
+      <% if @like_posts.count > 0 %>
+        <ul class="article_index">
+          <% @like_posts.each do |like_post| %>
+            <li>
+              <section class="article_main  post_link neumorphism">
+              <%= link_to "",post_show_path(id: like_post.id), class:"article_main_link_cover" %>
+                <%= render 'posts/post', post: like_post %>
+              </section>
+              <section class="little_show_comment">
+                <ul>
+                <% post_comments = Post.where(parent_id: like_post.id) %>
+                <% post_comments.slice(0..1).each do |post_comment|%>
+                  <%= render 'posts/comment_2', post: post_comment %>
+                <% end %>
+                </ul>
+                <% if post_comments.count >= 3 %>
+                  <%= link_to "さらにコメントを表示", "/posts/#{like_post.id}", class: "comment_more_show"%>
+                <% end %>
+              </section>
+            </li>
+          <% end %>
+        </ul>
+        <%= paginate @like_posts %>
+      <% else %>
+        <div class="favorite_post_nil_cover">
+          <div class="favorite_post_nil">
+            <i class="fa-regular fa-heart"></i>
+            <h3>投稿がありません</h3>
+            <span>気軽にイイねしてみよう！</span>
+            <%= link_to "投稿を見る", "/home/top_super_new", class: "favorite_post_nil_new_post_btn" %>
+          </div>
+        </div>
+      <% end %>
+    </article>
+    </div>                                      
+</div class="main-t">   

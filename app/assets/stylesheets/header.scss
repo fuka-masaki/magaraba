@@ -1,0 +1,628 @@
+$black :#545454;
+.mobile-menu {
+    position: fixed;
+    // right: 0;
+    top: 16px;
+    width: 200px;
+
+    &__btn {
+        background-color: unset;
+        border: none;
+        outline: none !important;
+        cursor: pointer;
+    
+        & > span {
+            background-color: #2ad6f1;
+            width: 35px;
+            height: 2px;
+            display: block;
+            margin-bottom: 9px;
+            transition: transform 0.7s;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &__cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s;
+        cursor: pointer;
+    }
+    &__main {
+        padding: 0;
+        perspective: 2000px;
+        transform-style: preserve-3d;
+    }
+    &__item {
+        list-style: none;
+        display: block;
+        transform: translate3d(0, 0, -1000px);
+        padding: 0;
+        transition: transform 0.3s, opacity 0.2s;
+        opacity: 0;
+        &:hover{
+            background-color: #5454542e;
+            & .mobile-menu__link{
+                color:  $black;
+                text-decoration: none;
+            }
+        }
+    }
+    &__link {
+        display: flex;
+        padding: 1rem 0 1rem .7rem;
+        color: $black;
+        .menu_right_icon{
+            padding-right: 1.2rem;
+        }
+        & > div{
+            &:last-child{
+                margin-left:auto;
+            }
+            .mobile_menu_icon{
+                padding-right: .2rem;
+            }
+        }
+    }
+}
+.menu-open {
+    &#all{
+        background: #efefef;
+    }
+    & .logo{
+        opacity: 0;
+    }
+    & #container {
+        transform: translate(200px, 0px);
+        box-shadow: 0 8px 40px -10px rgba(0, 0, 0, 0.8);
+    }
+    
+    & .mobile-menu {
+        
+        &__cover {
+            opacity: 1;
+            visibility: visible;
+            z-index: 400;
+        }
+        &__item{
+            transform: none;
+            opacity: 1;
+            @for $i from 1 through 6 {
+                &:nth-child(#{$i}) {
+                    transition-delay: $i * 0.07s;
+                }
+            }
+            &:first-child{
+                pointer-events: none;
+                & > h1{
+                    margin-bottom: 0;
+                    font-size: 1.3rem;
+                    color:#00a1ba;
+                    background: -webkit-linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
+                    -webkit-background-clip: text;//テキストでくり抜く
+                    -webkit-text-fill-color: transparent;//くり抜いた部分は背景を表示
+                }
+            }
+            
+        }
+        &__btn {
+            & > span {
+                background-color:#1eaad1;
+                &:nth-child(1) {
+                    transition-delay: 70ms;
+                    transform: translateY(11px) rotate(135deg);
+                }
+                &:nth-child(2) {
+                    transition-delay: 0s;
+                    transform:  translateX(-18px) scaleX(0);
+                }
+                &:nth-child(3) {
+                    transition-delay: 140ms;
+                    transform: translateY(-11px) rotate(-135deg);
+                }
+            }
+        }
+    }
+}
+.flash{
+    z-index: 2;
+    color: #efefef;
+    background-color: #69c9d8;
+    height: 40px;
+    width: 100%;
+    top: 55px;
+    position: fixed;
+    text-align: center;
+    line-height: 40px;
+}
+header{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    position: fixed;
+    z-index: 300;
+    
+    .nav{
+        width: 100vw;
+        height: 55px;
+        // height: 105%;
+        background-color: #efeeee;
+        box-shadow: 10px 10px 12px 0 rgba(0,0,0,.07);
+        border-radius: 0 0 10px 10px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: .3rem;
+        list-style-type: none;
+    }
+    li.logo{
+    margin-right: auto;
+    font-size: 1.3rem;
+    color:#00a1ba;
+    background: -webkit-linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
+    -webkit-background-clip: text;//テキストでくり抜く
+    -webkit-text-fill-color: transparent;//くり抜いた部分は背景を表示
+    font-weight: 800;
+    transition: opacity 0.5s;
+
+    }
+    li.user_icon{
+        margin-right: 0.5rem;
+        margin-left: 0.4rem;
+        color:#1eaad1;
+    }
+    li.search_btn{
+        padding-right: .5rem;
+        .smartphone_search_btn_show{
+            color:#00a1ba;
+            cursor: pointer;
+        }
+    }
+}
+header{
+    .nav{
+        // z-index:auto;
+        .user_icon{
+            z-index:auto;
+            .user_icon_show{
+                z-index: 410;
+            }
+        }
+    }
+}
+.user_icon_image{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+    cursor: pointer;
+    &:hover{
+        opacity: 0.9;
+        filter: brightness(110%);
+    }
+}
+.no_login_user_icon{
+    font-size: 31px;
+    width:fit-content;
+    // 変更
+    height: fit-content;
+    margin-left:auto;
+    // 変更終わり
+}
+// ユーザーアイコンからログインなどの詳細
+.user_icon{
+    position: relative;
+    // cursor: pointer;
+}
+.user_icon_show{
+    display: none;
+    position: absolute;
+    top: 105%;
+    right: 7%;
+    width: 400%;
+    background-color: #efeeee;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
+    border-radius: .4rem;
+    & > a{
+        color: #1eaad1;
+        padding: .7rem .6rem;
+        display: block;
+        border-top:1px solid #80d8e373;
+        & > i{
+            padding-right: .7rem;
+        }
+        &:last-child{
+            border-bottom: 1px solid #80d8e373;
+            margin-bottom: .7rem;
+        }
+        &:hover{
+            color: #00bef4;
+            background: #b2dae58a;
+            text-decoration: none;
+        }
+    }  
+}
+.user_icon__cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+}
+.x_btn{
+    position: relative;
+    text-align: right;
+    & > i{
+        color: #1eaad1;
+        padding: .6rem .8rem;
+    }
+    
+}
+
+.user_icon-open{
+    .user_icon_show{
+        display:block;
+    }
+    .user_icon__cover{
+        opacity: 1;
+        visibility: visible;
+        z-index: 200;
+    }
+}
+
+// 検索バーのデザイン
+input#search-bar{
+    background-color: #efefef;
+    color: #444;
+    border-radius: 4rem;
+    width: 100%;
+    height: 45px;
+    padding:0 3rem 0 1rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, .7),
+    inset -2px -2px 4px rgba(255, 255, 255, .5),
+    inset 2px 2px 2px rgba(255, 255, 255, .075),
+    inset 2px 2px 4px rgba(0, 0, 0, .15);
+    &:focus{
+        box-shadow: inset -2px -2px 6px rgba(255, 255, 255, .7),
+                    inset -2px -2px 4px rgba(255, 255, 255, .5),
+                    inset 2px 2px 2px rgba(255, 255, 255, .075),
+                    inset 2px 2px 4px rgba(0, 0, 0, .15);
+        transition: 0.35s ease;
+        color: #008ABF;
+        &::-webkit-input-placeholder{
+        transition: opacity 0.45s ease; 
+        opacity: 0;
+        }
+        &::-moz-placeholder {
+        transition: opacity 0.45s ease; 
+        opacity: 0;
+        }
+        &:-ms-placeholder {
+        transition: opacity 0.45s ease; 
+        opacity: 0;
+        }    
+    }
+}
+//検索バーのベースのバツボタンを削除
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+.post_search{
+    display:none;
+    position: relative;
+    .search_option{
+        display: inline-block;
+        position: absolute;
+        top: 12px;
+        right: 20px;
+        .search_x_btn{
+            color: #aa9f9f;
+            display: inline-block;
+            margin-right: .6rem;
+            .search_x_btn_icon{
+                cursor: pointer;
+            }
+            .search_x_btn_border{
+                border-right: 1px solid #aa9f9f;
+                padding-left: .7rem;
+            }
+        }
+        .search_btn_icon{
+            color: #aa9f9f;
+            display:inline-block;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+            appearance: none;
+            background-color: transparent;
+        }
+    }
+}
+//スマホ版の検索ボタンなど
+.smartphone_search_btn{
+    display:none;
+
+    // スマホ版の検索バーの横の空白
+    .smartphone_search_margin_box{
+        flex: 1;
+    }
+    // スマホ版の検索バーの横の戻るボタン
+    .smartphone_search_return{
+        flex:2;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .smartphone_post_search{
+        flex:13;
+        text-align: right;
+        // スマホの検索バーの右側にあるアイコンなど
+        .smartphone_search_option{
+            display: inline-block;
+            position: relative;
+            margin-right: 15px;
+            top: -33px;
+            // スマホ版のバツボタンとバツボタンの横のボダーのデザイン
+            .smartphone_search_x_btn{
+                display: inline-block;
+                color: #aa9f9f;
+                display: inline-block;
+                margin-right: .6rem;
+                .smartphone_search_x_btn_icon{
+                    cursor: pointer;
+                }
+                .smartphone_search_x_btn_border{
+                    border-right: 1px solid #aa9f9f;
+                    padding-left: .7rem;
+                }
+            }
+            //スマホ版の検索ボタンアイコンのデザイン
+            .smartphone_search_btn_icon{
+                color: #aa9f9f;
+                display:inline-block;
+                border: none;
+                cursor: pointer;
+                outline: none;
+                padding: 0;
+                appearance: none;
+                background-color: transparent;
+            }
+        }
+        //スマホ版の検索バーのデザイン
+        #smartphone_search-bar{
+            background-color: #efefef;
+            color: #444;
+            border-radius: 4rem;
+            width: 100%;
+            height: 45px;
+            padding:0 3rem 0 1rem;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            box-shadow: inset -2px -2px 6px rgba(255, 255, 255, .7),
+            inset -2px -2px 4px rgba(255, 255, 255, .5),
+            inset 2px 2px 2px rgba(255, 255, 255, .075),
+            inset 2px 2px 4px rgba(0, 0, 0, .15);
+            &:focus{
+                box-shadow: inset -2px -2px 6px rgba(255, 255, 255, .7),
+                            inset -2px -2px 4px rgba(255, 255, 255, .5),
+                            inset 2px 2px 2px rgba(255, 255, 255, .075),
+                            inset 2px 2px 4px rgba(0, 0, 0, .15);
+                transition: 0.35s ease;
+                color: #008ABF;
+                &::-webkit-input-placeholder{
+                transition: opacity 0.45s ease; 
+                opacity: 0;
+                }
+                &::-moz-placeholder {
+                transition: opacity 0.45s ease; 
+                opacity: 0;
+                }
+                &:-ms-placeholder {
+                transition: opacity 0.45s ease; 
+                opacity: 0;
+                }    
+            }
+        }
+        // 検索バーのバツボタンを削除
+        input[type="search"]::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+    }
+}
+// スマホ版の検索バーが表示された時に他の要素を黒くするデザイン
+.smartphone_search_cover{ 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    // transition: opacity 1s;
+    cursor: pointer;
+    z-index: 300;
+}
+// 検索アイコンが押されたときの反応
+.smartphone_search_open{
+    header{
+        height: 45px;
+    }
+    .nav{
+        display:block;
+        .mbtn,.logo,.search_btn,.user_icon{
+            display:none;
+        }
+    }
+    .smartphone_search_btn{
+        display: flex;
+    }
+    .smartphone_search_cover{
+        opacity: 1;
+        visibility: visible;
+    }
+
+}
+
+
+@media screen and (min-width:981px){
+    header{
+        .user_icon_show{
+            text-align: left;
+            top:41px;
+            left: 0;
+            width: 100%;
+        }
+
+        .mobile-menu__btn ,.mobile-menu{
+            display:none;
+        }
+        .nav{
+            width: 100%;
+            .logo{
+                flex: 2;
+            }
+            .search_btn{
+                max-width: 823.8px;
+                flex: 6;
+                .smartphone_search_btn_show{
+                    display:none;
+                }
+                .post_search{
+                    display: block;
+                }
+            }
+            .user_icon{
+                flex:2;
+                text-align: right;
+            }
+        }
+    }
+}
+// 5月14日追加
+// フッター
+footer{
+    // height: 150px;
+    padding-bottom:2rem;
+    background-color: #262626;
+    .footer_tittle{
+        & > h1{
+            margin-bottom: 0;
+            color: #0ed5f4;
+            padding-top: 2rem;
+            padding-bottom: 1rem;
+            font-size: 3.5rem;
+            text-align: center;
+
+            @media screen and(min-width:960px) {
+            text-align: left;
+            margin-left: 29px;
+            padding-top: 13px;
+            }
+
+        }
+    }
+    .inquiry{
+        & > div{
+            color:white;
+            font-size: 1.5rem;
+            .twitter_comment_1{
+                padding-top: 2rem;
+                text-align: center;
+            } 
+            .twitter_comment_2{
+                text-align: center;
+                & > span{
+                    color:#1DA1F2;
+                    & > i{
+                        padding: 0.75rem;
+                    }
+                }
+            }      
+            @media screen and(max-width:600px) {
+                font-size: 1.4rem;
+                .twitter_comment_1{
+                    & > span{
+                        display: block;
+                    }
+                }
+                .twitter_comment_2{
+                    & > span{
+                        & > i{
+                            padding: 0.7rem;
+                        }
+                    }
+                }      
+            }
+            @media screen and(max-width:425px) {
+                font-size: 1.26rem;
+                .twitter_comment_1{
+                    & > span{
+                        display: block;
+                    }
+                }
+                .twitter_comment_2{
+                    & > span{
+                        & > i{
+                            padding: 0.63rem;
+                        }
+                    }
+                }    
+            }
+            @media screen and(max-width:380px){
+                font-size:1.1rem;
+                .twitter_comment_1{
+                    & > span{
+                        display: block;
+                    }
+                }
+                .twitter_comment_2{
+                    & > span{
+                        & > i{
+                            padding: 0.55rem;
+                        }
+                    }
+                }  
+            }
+            @media screen and(max-width:321px){
+                .twitter_comment_1{
+                    font-size: 1rem;
+                } 
+            }
+        }
+        .inquiry_twitter_link{
+            color: white;
+            background: #1DA1F2;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            display: block;
+            width: fit-content;
+            font-size: 1.3rem;
+            border-radius: 37px;
+            margin-left: auto;
+            margin-right: auto;
+            &:hover{
+                text-decoration: none;
+                background-color:#3cb1f6;
+            }
+        }
+    }
+
+}
